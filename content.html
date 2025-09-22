@@ -3,352 +3,373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nội dung </title>
-    <link rel="stylesheet" href="/content.css">
+    <title>Nội dung - Tư tưởng Hồ Chí Minh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header Styles */
+        .header {
+            background: #A6171B;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header a:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.3s;
+        }
+
+        .header a:hover:before {
+            left: 100%;
+        }
+
+        .header a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section {
+    padding: 60px 40px;
+    text-align: center;
+    background:   
+        linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin: 40px auto;
+            max-width: 900px;
+            animation: fadeInUp 1s ease forwards;
+}
+
+
+        .hero-image {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #A6171B;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Content Cards */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #A6171B;
+            background-size: 300% 100%;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-card h3 {
+            color: #A6171B;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .content-card p {
+            color: #A6171B;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .learn-more-btn {
+            background: #FFD700;
+            color: #A6171B;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .learn-more-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            background: #FFC000;
+        }
+
+
+
+        /* Footer */
+        .footer {
+            background: #A6171B;
+            color: white;
+            padding: 60px 40px 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #bdc3c7;
+            line-height: 1.6;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ffcccc;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card, .product-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .content-card:nth-child(2) { animation-delay: 0.1s; }
+        .content-card:nth-child(3) { animation-delay: 0.2s; }
+        .content-card:nth-child(4) { animation-delay: 0.3s; }
+        .content-card:nth-child(5) { animation-delay: 0.4s; }
+    </style>
 </head>
 <body>
-    <div class="n-i-dung">
-        <img class="t-i-xu-ng-4-1" src="/assest/content.jpg" />
-        <div class="frame-445">
-          <div class="th-thi-t-k">
-            <div class="frame-408">
-              <img class="rectangle-4892" src="rectangle-48920.png" />
-              <img class="rectangle-4893" src="rectangle-48930.png" />
-              <div class="status-card">
-                <div class="best-seller">Best Seller</div>
-              </div>
-              <div class="frame-417">
-                <img class="icon-outline-bookmark" src="icon-outline-bookmark0.svg" />
-              </div>
-            </div>
-            <div class="frame-415">
-              <div class="frame-406">
-                <div class="member-name">T-shirt</div>
-              </div>
-              <div class="frame-414">
-                <div class="frame-349">
-                  <div class="group-39524">
-                    <img class="ellipse-156" src="ellipse-1560.png" />
-                  </div>
-                  <div class="designed-by-cloker">Designed by Cloker</div>
-                </div>
-                <div class="frame-413">
-                  <div class="frame-352">
-                    <img
-                      class="icon-outline-currency-dollar"
-                      src="icon-outline-currency-dollar0.svg"
-                    />
-                    <div class="_150-000-vn">150,000 VNĐ</div>
-                  </div>
-                  <div class="group-39502">
-                    <img
-                      class="icon-outline-shopping-bag"
-                      src="icon-outline-shopping-bag0.svg"
-                    />
-                    <div class="_85-purchases">85 purchases</div>
-                  </div>
-                  <div class="frame-412">
-                    <div class="frame-411">
-                      <div class="frame-353">
-                        <img
-                          class="icon-outline-heart"
-                          src="icon-outline-heart0.svg"
-                        />
-                        <div class="_92-like">92 like</div>
-                      </div>
-                      <div class="frame-351">
-                        <img
-                          class="icon-outline-pencil"
-                          src="icon-outline-pencil0.svg"
-                        />
-                        <div class="can-edit">Can edit</div>
-                      </div>
-                    </div>
-                    <div class="button-custom">
-                      <div class="custom">Custom</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k3">
-              <div class="frame-408">
-                <img class="rectangle-4892" src="rectangle-48921.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark2"
-                    src="icon-outline-bookmark1.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Tote Bag</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <div class="group-39524">
-                      <img class="ellipse-156" src="ellipse-1561.png" />
-                    </div>
-                    <div class="designed-by-kimz">Designed by Priome</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar2"
-                        src="icon-outline-currency-dollar1.svg"
-                      />
-                      <div class="_150-000-vn">90,000 VNĐ</div>
-                    </div>
-                    <div class="group-395022">
-                      <img
-                        class="icon-outline-shopping-bag2"
-                        src="icon-outline-shopping-bag1.svg"
-                      />
-                      <div class="_85-purchases">72 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart2"
-                            src="icon-outline-heart1.svg"
-                          />
-                          <div class="_26-like">78 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil2"
-                            src="icon-outline-pencil1.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4082">
-                <img class="rectangle-4892" src="rectangle-48922.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark3"
-                    src="icon-outline-bookmark2.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395242" src="group-395242.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar3"
-                        src="icon-outline-currency-dollar2.svg"
-                      />
-                      <div class="_150-000-vn">120,000 VNĐ</div>
-                    </div>
-                    <div class="group-39502">
-                      <img
-                        class="icon-outline-shopping-bag3"
-                        src="icon-outline-shopping-bag2.svg"
-                      />
-                      <div class="_85-purchases">69 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart3"
-                            src="icon-outline-heart2.svg"
-                          />
-                          <div class="_26-like">66 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil3"
-                            src="icon-outline-pencil2.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4083">
-                <img class="rectangle-4892" src="rectangle-48923.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark4"
-                    src="icon-outline-bookmark3.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Demon Slayer Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395243" src="group-395243.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar4"
-                        src="icon-outline-currency-dollar3.svg"
-                      />
-                      <div class="_150-000-vn">140,000 VNĐ</div>
-                    </div>
-                    <div class="group-395023">
-                      <img
-                        class="icon-outline-shopping-bag4"
-                        src="icon-outline-shopping-bag3.svg"
-                      />
-                      <div class="_85-purchases">64 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart4"
-                            src="icon-outline-heart3.svg"
-                          />
-                          <div class="_26-like">51 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil4"
-                            src="icon-outline-pencil3.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container">
+        <!-- Header -->
         <div class="header">
-            <a href="index.html"  class="trang-ch">Trang chủ</a>
-            <a href="video.html"  class="video">Video</a>
-            <a href="review.html" class="n-t-p">Ôn tập</a>
-            <a href="/content.html" class="n-i-dung2">Nội dung</a>
-            <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
-          </div>
+            <div class="logo">TƯ TƯỞNG HCM</div>
+            <nav>
+                <a href="/index.html">Trang chủ</a>
+                <a href="/video.html">Video</a>
+                <a href="/review.html">Ôn tập</a>
+                <a href="/content.html">Nội dung</a>
+            </nav>
+        </div>
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <img src="/assest/tải xuống (4) 1.png" class="hero-image" alt="Hero Image">
+            <h1 class="hero-title">Nội dung về Tư tưởng Hồ Chí Minh về Đảng Cộng sản Việt Nam</h1>
+        </div>
+
+        <!-- Content Cards -->
+        <div class="content-grid">
+            <div class="content-card">
+                <h3>Tính tất yếu và vai trò lãnh đạo của Đảng Cộng sản Việt Nam</h3>
+                <p>Tìm hiểu về vai trò quan trọng và tính tất yếu lịch sử của Đảng Cộng sản Việt Nam trong sự nghiệp giải phóng dân tộc và xây dựng đất nước.</p>
+                <a href="/content_detail.html" class="learn-more-btn">
+                    Học thêm 
+                    <span>→</span>
+                </a>
+            </div>
+            
+            <div class="content-card">
+                <h3>Đảng phải trong sạch, vững mạnh</h3>
+                <p>Nghiên cứu về quan điểm của Hồ Chí Minh về việc xây dựng và rèn luyện Đảng, giữ gìn phẩm chất đạo đức cách mạng.</p>
+                <a href="content_detail2.html" class="learn-more-btn">
+                    Học thêm 
+                    <span>→</span>
+                </a>
+            </div>
+            
+            <div class="content-card">
+                <h3>Trở thành đảng viên theo tư tưởng Hồ Chí Minh có khó không?</h3>
+                <p>Phân tích về tiêu chuẩn và phẩm chất của đảng viên theo tư tưởng Hồ Chí Minh trong thời đại mới.</p>
+                <a href="/content_detail3.html" class="learn-more-btn">
+                    Học thêm 
+                    <span>→</span>
+                </a>
+            </div>
+            
+            <div class="content-card">
+                <h3>Hiện tượng nhiều đảng viên giữ chức vụ quan trọng tự nguyện từ chức</h3>
+                <p>Tìm hiểu và phân tích hiện tượng đảng viên tự nguyện từ chức và ý nghĩa của việc này trong xây dựng Đảng.</p>
+                <a href="/content_detail4.html" class="learn-more-btn">
+                    Học thêm
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+
+
+        <!-- Footer -->
         <div class="footer">
-          <div class="divider"></div>
-          <div class="copyright">
-            Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh
-          </div>
-          <div class="n-i-dung3">Nội dung</div>
-          <div class="t-i-li-u">Tài liệu</div>
-          <div
-            class="trang-h-c-t-p-v-nghi-n-c-u-v-t-t-ng-h-ch-minh-cung-c-p-t-i-li-u-b-i-gi-ng-v-ki-n-th-c-n-n-t-ng-v-l-ch-s-ch-nh-tr-v-tri-t-h-c-vi-t-nam"
-          >
-            Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu,
-            bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt
-            Nam.
-          </div>
-          <div class="t-t-ng-hcm-v-ng-cs-vi-t-nam">
-            Tư tưởng HCM về Đảng CS Việt Nam
-          </div>
-          <div class="gi-o-n">Giáo án</div>
-          <div class="t-nh-t-t-y-u-v-vai-tr-l-nh-o">
-            Tính tất yếu và vai trò lãnh đạo
-          </div>
-          <div class="youtube">Youtube</div>
-          <div class="ng-ph-i-trong-s-ch-v-ng-m-nh">
-            Đảng phải trong sạch, vững mạnh
-          </div>
-          <div class="nghi-n-c-u">Nghiên cứu</div>
-          <div class="b-i-gi-ng">Bài giảng</div>
-          <div class="video2">Video</div>
-          <div class="icon-outline-mail-open"></div>
-          <div class="t-t-ng-h-ch-minh">
-            TƯ TƯỞNG
-            <br />
-            HỒ CHÍ MINH
-          </div>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TƯ TƯỞNG HỒ CHÍ MINH</h3>
+                    <p>Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu, bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt Nam.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Nội dung</h3>
+                    <a href="#">Tư tưởng HCM về Đảng CS Việt Nam</a>
+                    <a href="#">Tính tất yếu và vai trò lãnh đạo</a>
+                    <a href="#">Đảng phải trong sạch, vững mạnh</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Tài liệu</h3>
+                    <a href="#">Giáo án</a>
+                    <a href="#">Nghiên cứu</a>
+                    <a href="#">Bài giảng</a>
+                    <a href="#">Video</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Liên kết</h3>
+                    <a href="#">Youtube</a>
+                    <a href="#">Email</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh</p>
+            </div>
         </div>
-        <div class="n-i-dung-v-t-t-ng-h-ch-nh-minh-v-ng-c-ng-s-n-vi-t-nam">
-          NỘI DUNG VỀ TƯ TƯỞNG HỒ CHÍNH MINH VỀ ĐẢNG CỘNG SẢN VIỆT NAM
-        </div>
-        <div class="rectangle-5000"></div>
-        <div class="rectangle-50002"></div>
-        <div class="rectangle-50003"></div>
-        <div class="rectangle-50004"></div>
-        <div class="rectangle-50005"></div>
-        <div class="t-t-ng-hcm-ng-c-ng-s-n-vi-t-nam">
-          Tư tưởng HCM Đảng Cộng sản Việt Nam
-        </div>
-        <div class="t-nh-t-t-y-u-v-vai-tr-l-nh-o-c-a-ng-c-ng-s-n-vi-t-nam">
-          Tính tất yếu và vai trò lãnh đạo của Đảng Cộng sản Việt Nam
-          <br />
-        </div>
-        <div class="ng-ph-i-trong-s-ch-v-ng-m-nh2">
-          Đảng phải trong sạch, vững mạnh
-        </div>
-        <div class="tr-th-nh-ng-vi-n-theo-t-t-ng-h-ch-minh-c-kh-kh-ng">
-          Trở thành đảng viên theo tư tưởng Hồ Chí Minh có khó không?
-        </div>
-        <div class="hi-n-t-ng-nhi-u-ng-vi-n-gi-ch-c-v-quan-tr-ng-t-nguy-n-t-ch-c">
-          Hiện tượng nhiều đảng viên giữ chức vụ quan trọng tự nguyện từ chức
-        </div>
-        <div class="rectangle-5009"></div>
-        <a href="/content_detail.html" class="h-c-th-m">Học thêm </a>
-        <img class="fi-br-angle-double-right" src="fi-br-angle-double-right0.svg" />
-        <div class="rectangle-50092"></div>
-        <a href="content_detail2.html" class="h-c-th-m2">Học thêm </a>
-        <img class="fi-br-angle-double-right2" src="fi-br-angle-double-right1.svg" />
-        <div class="rectangle-50093"></div>
-        <a href="/content_detail3.html" class="h-c-th-m3">Học thêm  </a>
-        <img class="fi-br-angle-double-right3" src="fi-br-angle-double-right2.svg" />
-        <div class="rectangle-50094"></div>
-        <a href="/content_detail4.html" class="h-c-th-m4">Học thêm</a>
-        <img class="fi-br-angle-double-right4" src="fi-br-angle-double-right3.svg" />
-        <div class="rectangle-50095"></div>
-        <a href="/content_detail5.html" class="h-c-th-m5">Học thêm</a>
-        <img class="fi-br-angle-double-right5" src="fi-br-angle-double-right4.svg" />
-      </div>
+    </div>
 </body>
 </html>
-  
