@@ -1,352 +1,560 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>video saved</title>
-    <link rel="stylesheet" href="video_saved.css">
+    <title>Video Đã Lưu - Tư tưởng Hồ Chí Minh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a, .nav-links div {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .t-t-ng-hcm {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+
+        .tab {
+            padding: 12px 30px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab:hover:not(.active) {
+            border-color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="50" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="70" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+        }
+
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .play-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .bookmark-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 18px;
+            z-index: 3;
+        }
+
+        .video-content {
+            padding: 25px;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2d3748;
+            line-height: 1.4;
+        }
+
+        .video-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-link:hover {
+            color: #764ba2;
+            transform: translateX(5px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pagination-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-numbers {
+            display: flex;
+            gap: 10px;
+        }
+
+        .page-number {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .page-number.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .page-number:hover:not(.active) {
+            background: #e2e8f0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e0;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            color: #cbd5e0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-card:nth-child(1) { animation-delay: 0.1s; }
+        .video-card:nth-child(2) { animation-delay: 0.2s; }
+        .video-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
 </head>
 <body>
-    <div class="video">
-        <div class="rectangle-5008"></div>
-        <div class="frame-445">
-          <div class="th-thi-t-k">
-            <div class="frame-408">
-              <img class="rectangle-4892" src="rectangle-48920.png" />
-              <img class="rectangle-4893" src="rectangle-48930.png" />
-              <div class="status-card">
-                <div class="best-seller">Best Seller</div>
-              </div>
-              <div class="frame-417">
-                <img class="icon-outline-bookmark" src="icon-outline-bookmark0.svg" />
-              </div>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="nav-links">
+                <a href="index.html" class="trang-ch">Trang chủ</a>
+                <a href="/video.html" class="video2">Video</a>
+                <a href="/review.html" class="n-t-p">Ôn tập</a>
+                <a href="/content.html" class="n-i-dung">Nội dung</a>
             </div>
-            <div class="frame-415">
-              <div class="frame-406">
-                <div class="member-name">T-shirt</div>
-              </div>
-              <div class="frame-414">
-                <div class="frame-349">
-                  <div class="group-39524">
-                    <img class="ellipse-156" src="ellipse-1560.png" />
-                  </div>
-                  <div class="designed-by-cloker">Designed by Cloker</div>
+            <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header fade-in">
+            <h1 class="page-title">Video đã lưu</h1>
+            <p class="page-subtitle">Những video bạn đã đánh dấu để xem lại</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs fade-in">
+            <div class="tab active">Tất cả</div>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="video-card fade-in">
+                <div class="video-thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="bookmark-badge">📚</div>
                 </div>
-                <div class="frame-413">
-                  <div class="frame-352">
-                    <img
-                      class="icon-outline-currency-dollar"
-                      src="icon-outline-currency-dollar0.svg"
-                    />
-                    <div class="_150-000-vn">150,000 VNĐ</div>
-                  </div>
-                  <div class="group-39502">
-                    <img
-                      class="icon-outline-shopping-bag"
-                      src="icon-outline-shopping-bag0.svg"
-                    />
-                    <div class="_85-purchases">85 purchases</div>
-                  </div>
-                  <div class="frame-412">
-                    <div class="frame-411">
-                      <div class="frame-353">
-                        <img
-                          class="icon-outline-heart"
-                          src="icon-outline-heart0.svg"
-                        />
-                        <div class="_92-like">92 like</div>
-                      </div>
-                      <div class="frame-351">
-                        <img
-                          class="icon-outline-pencil"
-                          src="icon-outline-pencil0.svg"
-                        />
-                        <div class="can-edit">Can edit</div>
-                      </div>
-                    </div>
-                    <div class="button-custom">
-                      <div class="custom">Custom</div>
-                    </div>
-                  </div>
+                <div class="video-content">
+                    <h3 class="video-title">Bác Hồ với đạo đức cách mạng</h3>
+                    <a href="https://www.youtube.com/watch?v=xjDaUhCvVlg" class="video-link" target="_blank">
+                        Xem video →
+                    </a>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k3">
-              <div class="frame-408">
-                <img class="rectangle-4892" src="rectangle-48921.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
+
+            <!-- Video 2 -->
+            <div class="video-card fade-in">
+                <div class="video-thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="bookmark-badge">📚</div>
                 </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark2"
-                    src="icon-outline-bookmark1.svg"
-                  />
+                <div class="video-content">
+                    <h3 class="video-title">Tư tưởng HCM về Đảng cộng sản Việt Nam</h3>
+                    <a href="https://www.youtube.com/watch?v=KqNnqaxz2zw" class="video-link" target="_blank">
+                        Xem video →
+                    </a>
                 </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Tote Bag</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <div class="group-39524">
-                      <img class="ellipse-156" src="ellipse-1561.png" />
-                    </div>
-                    <div class="designed-by-kimz">Designed by Priome</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar2"
-                        src="icon-outline-currency-dollar1.svg"
-                      />
-                      <div class="_150-000-vn">90,000 VNĐ</div>
-                    </div>
-                    <div class="group-395022">
-                      <img
-                        class="icon-outline-shopping-bag2"
-                        src="icon-outline-shopping-bag1.svg"
-                      />
-                      <div class="_85-purchases">72 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart2"
-                            src="icon-outline-heart1.svg"
-                          />
-                          <div class="_26-like">78 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil2"
-                            src="icon-outline-pencil1.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4082">
-                <img class="rectangle-4892" src="rectangle-48922.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
+
+            <!-- Video 3 -->
+            <div class="video-card fade-in">
+                <div class="video-thumbnail">
+                    <div class="play-button">▶</div>
+                    <div class="bookmark-badge">📚</div>
                 </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark3"
-                    src="icon-outline-bookmark2.svg"
-                  />
+                <div class="video-content">
+                    <h3 class="video-title">Tư tưởng HCM về Đảng phụ sự và liêm chính</h3>
+                    <a href="https://www.youtube.com/watch?v=WQ0jE1rtai4" class="video-link" target="_blank">
+                        Xem video →
+                    </a>
                 </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395242" src="group-395242.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar3"
-                        src="icon-outline-currency-dollar2.svg"
-                      />
-                      <div class="_150-000-vn">120,000 VNĐ</div>
-                    </div>
-                    <div class="group-39502">
-                      <img
-                        class="icon-outline-shopping-bag3"
-                        src="icon-outline-shopping-bag2.svg"
-                      />
-                      <div class="_85-purchases">69 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart3"
-                            src="icon-outline-heart2.svg"
-                          />
-                          <div class="_26-like">66 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil3"
-                            src="icon-outline-pencil2.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4083">
-                <img class="rectangle-4892" src="rectangle-48923.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark4"
-                    src="icon-outline-bookmark3.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Demon Slayer Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395243" src="group-395243.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar4"
-                        src="icon-outline-currency-dollar3.svg"
-                      />
-                      <div class="_150-000-vn">140,000 VNĐ</div>
-                    </div>
-                    <div class="group-395023">
-                      <img
-                        class="icon-outline-shopping-bag4"
-                        src="icon-outline-shopping-bag3.svg"
-                      />
-                      <div class="_85-purchases">64 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart4"
-                            src="icon-outline-heart3.svg"
-                          />
-                          <div class="_26-like">51 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil4"
-                            src="icon-outline-pencil3.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination fade-in">
+            <button class="pagination-btn disabled">
+                ← Trở lại
+            </button>
+            
+            <div class="pagination-numbers">
+                <div class="page-number active">1</div>
+                <div class="page-number">2</div>
             </div>
-          </div>
+            
+            <button class="pagination-btn">
+                Tiếp →
+            </button>
         </div>
-        <div class="header">
-          <a href="Homepage.html" class="trang-ch">Trang chủ</a>
-          <a href="#" class="video2">Video</a>
-          <a href="review.html" class="n-t-p">Ôn tập</a>
-          <a href="/content.html" class="n-i-dung">Nội dung</a>
-          <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>TƯ TƯỞNG HỒ CHÍ MINH</h3>
+                <p>Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu, bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt Nam.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Nội dung</h3>
+                <a href="#">Tư tưởng HCM về Đảng CS Việt Nam</a>
+                <a href="#">Tính tất yếu và vai trò lãnh đạo</a>
+                <a href="#">Đảng phải trong sạch, vững mạnh</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Tài liệu</h3>
+                <a href="#">Giáo án</a>
+                <a href="#">Bài giảng</a>
+                <a href="#">Nghiên cứu</a>
+                <a href="#">Video</a>
+                <a href="#">Youtube</a>
+            </div>
         </div>
-        <div class="t-t-c">Tất cả</div>
-        <div class="video-l-u">Video đã lưu</div>
-        <div class="group-48097080">
-          <div class="rectangle-5000"></div>
-        </div>
-        <img class="fi-sr-bookmark" src="fi-sr-bookmark0.svg" />
-        <div class="group-48097080">
-          <div class="rectangle-50002"></div>
-        </div>
-        <img class="fi-sr-bookmark2" src="fi-sr-bookmark1.svg" />
-        <div class="group-48097080">
-          <div class="rectangle-50003"></div>
-        </div>
-        <img class="fi-sr-bookmark3" src="fi-sr-bookmark2.svg" />
-        <img class="rectangle-50004" src="rectangle-50003.png" />
-        <img class="rectangle-50005" src="rectangle-50004.png" />
-        <a href="https://www.youtube.com/watch?v=xjDaUhCvVlg" class="b-c-h-v-i-o-c-c-ch-m-ng">Bác Hồ với đạo đức cách mạng</a>
-        <a href="https://www.youtube.com/watch?v=KqNnqaxz2zw" class="t-t-ng-hcm-v-ng-c-ng-s-n-vi-t-nam">
-          Tư tưởng HCM về Đảng cộng sản Việt Nam
-        </a>
-        <div class="group-48097081">
-          <img class="rectangle-50006" src="rectangle-50005.png" />
-        </div>
-        <a href="https://www.youtube.com/watch?v=WQ0jE1rtai4" class="t-t-ng-hcm-v-ng-ph-s-v-li-m-ch-nh">
-          Tư tưởng HCM về Đảng phụ sự và liêm chính
-        </a>
-       
         
-        <div class="footer">
-          <div class="divider"></div>
-          <div class="copyright">
-            Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh
-          </div>
-          <div class="n-i-dung2">Nội dung</div>
-          <div class="t-i-li-u">Tài liệu</div>
-          <div
-            class="trang-h-c-t-p-v-nghi-n-c-u-v-t-t-ng-h-ch-minh-cung-c-p-t-i-li-u-b-i-gi-ng-v-ki-n-th-c-n-n-t-ng-v-l-ch-s-ch-nh-tr-v-tri-t-h-c-vi-t-nam"
-          >
-            Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu,
-            bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt
-            Nam.
-          </div>
-          <div class="t-t-ng-hcm-v-ng-cs-vi-t-nam">
-            Tư tưởng HCM về Đảng CS Việt Nam
-          </div>
-          <div class="gi-o-n">Giáo án</div>
-          <div class="t-nh-t-t-y-u-v-vai-tr-l-nh-o">
-            Tính tất yếu và vai trò lãnh đạo
-          </div>
-          <div class="youtube">Youtube</div>
-          <div class="ng-ph-i-trong-s-ch-v-ng-m-nh">
-            Đảng phải trong sạch, vững mạnh
-          </div>
-          <div class="nghi-n-c-u">Nghiên cứu</div>
-          <div class="b-i-gi-ng">Bài giảng</div>
-          <div class="video3">Video</div>
-          <div class="icon-outline-mail-open"></div>
-          <div class="t-t-ng-h-ch-minh">
-            TƯ TƯỞNG
-            <br />
-            HỒ CHÍ MINH
-          </div>
+        <div class="footer-bottom">
+            <p>Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh</p>
         </div>
-        <div class="rectangle-5004"></div>
-        <div class="rectangle-5009"></div>
-        <div class="_1">1</div>
-        <div class="_2">2</div>
-        <img class="fi-br-arrow-left" src="fi-br-arrow-left0.svg" />
-        <img class="fi-br-arrow-right" src="fi-br-arrow-right0.svg" />
-        <div class="ti-p">Tiếp</div>
-        <div class="tr-l-i">Trở lại</div>
-      </div>
-      
-    
+    </footer>
+
+    <script>
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.video-card, .page-header, .filter-tabs, .pagination').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Filter tabs functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Page number functionality
+        document.querySelectorAll('.page-number').forEach(pageNum => {
+            pageNum.addEventListener('click', function() {
+                document.querySelectorAll('.page-number').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1387,3 +1387,37 @@
   left: 497.13px;
   top: 2059.63px;
 }
+/* Reset chung cho tất cả link */
+a {
+  color: #c62828;             /* đỏ đậm */
+  text-decoration: none;      /* bỏ gạch chân */
+  font-weight: 600;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Khi hover thì đổi màu và có hiệu ứng */
+a:hover {
+  color: #ff9800;             /* cam nổi bật */
+  transform: translateY(-2px);
+  text-decoration: underline; /* thêm gạch chân khi hover */
+}
+
+/* Nếu muốn các link dạng button */
+a.cta-button,
+a.button-custom,
+a.button-custom2 {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ffd600;
+  color: #000 !important;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a.cta-button:hover,
+a.button-custom:hover,
+a.button-custom2:hover {
+  background: #ffca28;
+  transform: scale(1.05);
+}

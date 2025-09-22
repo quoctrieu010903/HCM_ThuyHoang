@@ -1,706 +1,525 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/content_detail3.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tư tưởng Hồ Chí Minh - Đảng phải trong sạch, vững mạnh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        nav {
+            background: #8b0000;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .hero-quote {
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+            border-left: 5px solid #c41e3a;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero-quote blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #8b0000;
+            margin-bottom: 1rem;
+        }
+
+        .hero-quote cite {
+            font-weight: bold;
+            color: #c41e3a;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #c41e3a;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #c41e3a;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h2::before {
+            content: '★';
+            color: #ffd700;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .principle-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+        .principle-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+
+        .principle-card h3 {
+            color: #c41e3a;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .principle-card ul {
+            list-style: none;
+        }
+
+        .principle-card li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .principle-card li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #c41e3a;
+        }
+
+        .cadre-requirements {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .cadre-requirements h2 {
+            text-align: center;
+            color: #1565c0;
+            margin-bottom: 1.5rem;
+        }
+
+        .requirements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .requirement-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #1565c0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .highlight-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-quote blockquote {
+                font-size: 1.2rem;
+            }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #c41e3a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .scroll-to-top:hover {
+            background: #8b0000;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
-  <div class="n-i-dung">
-    <div class="frame-445">
-      <div class="th-thi-t-k">
-        <div class="frame-408">
-          <img class="rectangle-4892" src="rectangle-48920.png" />
-          <img class="rectangle-4893" src="rectangle-48930.png" />
-          <div class="status-card">
-            <div class="best-seller">Best Seller</div>
-          </div>
-          <div class="frame-417">
-            <img class="icon-outline-bookmark" src="icon-outline-bookmark0.svg" />
-          </div>
-        </div>
-        <div class="frame-415">
-          <div class="frame-406">
-            <div class="member-name">T-shirt</div>
-          </div>
-          <div class="frame-414">
-            <div class="frame-349">
-              <div class="group-39524">
-                <img class="ellipse-156" src="ellipse-1560.png" />
-              </div>
-              <div class="designed-by-cloker">Designed by Cloker</div>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>TƯ TƯỞNG HỒ CHÍ MINH</h1>
+                <p class="subtitle">ĐẢNG PHẢI TRONG SẠCH, VỮNG MẠNH</p>
             </div>
-            <div class="frame-413">
-              <div class="frame-352">
-                <img
-                  class="icon-outline-currency-dollar"
-                  src="icon-outline-currency-dollar0.svg"
-                />
-                <div class="_150-000-vn">150,000 VNĐ</div>
-              </div>
-              <div class="group-39502">
-                <img
-                  class="icon-outline-shopping-bag"
-                  src="icon-outline-shopping-bag0.svg"
-                />
-                <div class="_85-purchases">85 purchases</div>
-              </div>
-              <div class="frame-412">
-                <div class="frame-411">
-                  <div class="frame-353">
-                    <img
-                      class="icon-outline-heart"
-                      src="icon-outline-heart0.svg"
-                    />
-                    <div class="_92-like">92 like</div>
-                  </div>
-                  <div class="frame-351">
-                    <img
-                      class="icon-outline-pencil"
-                      src="icon-outline-pencil0.svg"
-                    />
-                    <div class="can-edit">Can edit</div>
-                  </div>
-                </div>
-                <div class="button-custom">
-                  <div class="custom">Custom</div>
-                </div>
-              </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/index.html">Trang chủ</a></li>
+                <li><a href="/video.html">Video</a></li>
+                <li><a href="#content">Nội dung</a></li>
+                <li><a href="/review.html">Ôn tập</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="hero-quote">
+                <blockquote>
+                    "Đảng ta là đạo đức, là văn minh"
+                </blockquote>
+                <cite>- Chủ tịch Hồ Chí Minh, Lễ kỷ niệm 30 năm Ngày thành lập Đảng (5-1-1960)</cite>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    Tám chữ vàng đã kết tinh phẩm giá, cốt cách, bản lĩnh, trí tuệ, tầm vóc của một đảng cách mạng chân chính và mang giá trị thời đại sâu sắc.
+                </p>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="th-thi-t-k2">
-        <div class="th-thi-t-k3">
-          <div class="frame-408">
-            <img class="rectangle-4892" src="rectangle-48921.png" />
-            <div class="status-card">
-              <div class="best-seller">Best Seller</div>
-            </div>
-            <div class="frame-417">
-              <img
-                class="icon-outline-bookmark2"
-                src="icon-outline-bookmark1.svg"
-              />
-            </div>
-          </div>
-          <div class="frame-415">
-            <div class="frame-406">
-              <div class="member-name">Tote Bag</div>
-            </div>
-            <div class="frame-414">
-              <div class="frame-349">
-                <div class="group-39524">
-                  <img class="ellipse-156" src="ellipse-1561.png" />
+
+            <div class="content-grid">
+                <div class="section">
+                    <h2>Đảng là đạo đức</h2>
+                    <ul>
+                        <li>Đảng coi đạo đức cách mạng là gốc, nền tảng của người cách mạng</li>
+                        <li>Mục đích hoạt động giải phóng dân tộc, xã hội, giai cấp và con người</li>
+                        <li>Mang lại tự do, hạnh phúc cho nhân dân</li>
+                        <li>Cương lĩnh, đường lối, chủ trương phải nhằm mục đích đó</li>
+                        <li>Chăm lo rèn luyện đạo đức cho cán bộ, đảng viên</li>
+                    </ul>
                 </div>
-                <div class="designed-by-kimz">Designed by Priome</div>
-              </div>
-              <div class="frame-413">
-                <div class="frame-352">
-                  <img
-                    class="icon-outline-currency-dollar2"
-                    src="icon-outline-currency-dollar1.svg"
-                  />
-                  <div class="_150-000-vn">90,000 VNĐ</div>
+
+                <div class="section">
+                    <h2>Đảng là văn minh</h2>
+                    <ul>
+                        <li>Hay còn gọi là "Đảng cách mạng chân chính"</li>
+                        <li>Đại diện cho trí tuệ, văn hóa và lương tâm của dân tộc</li>
+                        <li>Hoạt động trong khuôn khổ hiến pháp và pháp luật</li>
+                        <li>Phù hợp với quy luật phát triển tiến bộ của xã hội</li>
+                        <li>Đặt lợi ích của nhân dân lên trên hết</li>
+                    </ul>
                 </div>
-                <div class="group-395022">
-                  <img
-                    class="icon-outline-shopping-bag2"
-                    src="icon-outline-shopping-bag1.svg"
-                  />
-                  <div class="_85-purchases">72 purchases</div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Đảng phải trong sạch, vững mạnh</h3>
+                <p>Xứng đáng là đại biểu trí tuệ, lương tâm và văn minh của dân tộc Việt Nam</p>
+            </div>
+
+            <h2 style="text-align: center; color: #c41e3a; margin: 2rem 0; font-size: 2rem;">
+                Những vấn đề nguyên tắc trong hoạt động của Đảng
+            </h2>
+
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h3>Chủ nghĩa Mác-Lênin</h3>
+                    <p>Đảng phải lấy chủ nghĩa Mác-Lênin làm nền tảng tư tưởng và kim chỉ nam cho hành động. Chủ nghĩa chân chính nhất, chắc chắn nhất, cách mạng nhất.</p>
                 </div>
-                <div class="frame-412">
-                  <div class="frame-411">
-                    <div class="frame-353">
-                      <img
-                        class="icon-outline-heart2"
-                        src="icon-outline-heart1.svg"
-                      />
-                      <div class="_26-like">78 like</div>
+
+                <div class="principle-card">
+                    <h3>Tập trung dân chủ</h3>
+                    <p>Là nguyên tắc tổ chức cơ bản của Đảng. Mọi vấn đề phải được bàn bạc dân chủ, sau đó quyết định thống nhất và tập trung thực hiện nghiêm túc.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Tự phê bình và phê bình</h3>
+                    <p>Mỗi tổ chức đảng, mỗi đảng viên thẳng thắn nhìn nhận ưu điểm và khuyết điểm để giúp nhau sửa chữa sai lầm, củng cố sức mạnh.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Kỷ luật nghiêm minh, tự giác</h3>
+                    <p>Tất cả đảng viên phải tuyệt đối chấp hành kỷ luật của Đảng. Thực hiện kỷ luật phải nghiêm minh, công bằng và dựa trên tinh thần tự giác.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Thường xuyên chỉnh đốn</h3>
+                    <p>Đảng hoạt động vì Tổ quốc giàu mạnh, đồng bào sung sướng. Chỉnh đốn là hoạt động vô cùng quan trọng trong xây dựng Đảng.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Đoàn kết, thống nhất</h3>
+                    <p>Là điều kiện để xây dựng khối đại đoàn kết dân tộc. Kiên quyết chống chia rẽ, bè phái, cục bộ làm suy yếu Đảng.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Liên hệ mật thiết với nhân dân</h3>
+                    <p>Đảng xuất phát từ nhân dân, vì nhân dân phục vụ. Luôn gắn bó, lắng nghe, tôn trọng và dựa vào nhân dân.</p>
+                </div>
+
+                <div class="principle-card">
+                    <h3>Đoàn kết quốc tế</h3>
+                    <p>Duy trì và tăng cường các mối quan hệ quốc tế trong sáng, học hỏi kinh nghiệm từ các Đảng khác. Thể hiện tính chất quốc tế của giai cấp công nhân.</p>
+                </div>
+            </div>
+
+            <div class="cadre-requirements">
+                <h2>Xây dựng đội ngũ cán bộ, đảng viên</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem; font-style: italic;">
+                    "Công tác cán bộ là công tác gốc của Đảng. Muốn thành công hay thất bại là do cán bộ giỏi hay kém."
+                </p>
+                <div class="requirements-list">
+                    <div class="requirement-item">
+                        <strong>Tuyệt đối trung thành với Đảng</strong>
+                        <p>Nghiêm chỉnh thực hiện cương lĩnh, đường lối, quan điểm, chủ trương, nghị quyết của Đảng</p>
                     </div>
-                    <div class="frame-351">
-                      <img
-                        class="icon-outline-pencil2"
-                        src="icon-outline-pencil1.svg"
-                      />
-                      <div class="can-edit">Can edit</div>
+                    <div class="requirement-item">
+                        <strong>Tu dưỡng đạo đức cách mạng</strong>
+                        <p>Luôn luôn tu dưỡng, rèn luyện, trau dồi đạo đức cách mạng</p>
                     </div>
-                  </div>
-                  <div class="button-custom2">
-                    <div class="custom">Custom</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="th-thi-t-k2">
-        <div class="th-thi-t-k">
-          <div class="frame-4082">
-            <img class="rectangle-4892" src="rectangle-48922.png" />
-            <div class="status-card">
-              <div class="best-seller">Best Seller</div>
-            </div>
-            <div class="frame-417">
-              <img
-                class="icon-outline-bookmark3"
-                src="icon-outline-bookmark2.svg"
-              />
-            </div>
-          </div>
-          <div class="frame-415">
-            <div class="frame-406">
-              <div class="member-name">Mouse Pad</div>
-            </div>
-            <div class="frame-414">
-              <div class="frame-349">
-                <img class="group-395242" src="group-395242.svg" />
-                <div class="designed-by-kimz">Designed by Helen</div>
-              </div>
-              <div class="frame-413">
-                <div class="frame-352">
-                  <img
-                    class="icon-outline-currency-dollar3"
-                    src="icon-outline-currency-dollar2.svg"
-                  />
-                  <div class="_150-000-vn">120,000 VNĐ</div>
-                </div>
-                <div class="group-39502">
-                  <img
-                    class="icon-outline-shopping-bag3"
-                    src="icon-outline-shopping-bag2.svg"
-                  />
-                  <div class="_85-purchases">69 purchases</div>
-                </div>
-                <div class="frame-412">
-                  <div class="frame-411">
-                    <div class="frame-353">
-                      <img
-                        class="icon-outline-heart3"
-                        src="icon-outline-heart2.svg"
-                      />
-                      <div class="_26-like">66 like</div>
+                    <div class="requirement-item">
+                        <strong>Học tập nâng cao trình độ</strong>
+                        <p>Luôn luôn học tập nâng cao trình độ về mọi mặt</p>
                     </div>
-                    <div class="frame-351">
-                      <img
-                        class="icon-outline-pencil3"
-                        src="icon-outline-pencil2.svg"
-                      />
-                      <div class="can-edit">Can edit</div>
+                    <div class="requirement-item">
+                        <strong>Liên hệ mật thiết với nhân dân</strong>
+                        <p>Có mối liên hệ mật thiết với nhân dân</p>
                     </div>
-                  </div>
-                  <div class="button-custom2">
-                    <div class="custom">Custom</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="th-thi-t-k2">
-        <div class="th-thi-t-k">
-          <div class="frame-4083">
-            <img class="rectangle-4892" src="rectangle-48923.png" />
-            <div class="status-card">
-              <div class="best-seller">Best Seller</div>
-            </div>
-            <div class="frame-417">
-              <img
-                class="icon-outline-bookmark4"
-                src="icon-outline-bookmark3.svg"
-              />
-            </div>
-          </div>
-          <div class="frame-415">
-            <div class="frame-406">
-              <div class="member-name">Demon Slayer Mouse Pad</div>
-            </div>
-            <div class="frame-414">
-              <div class="frame-349">
-                <img class="group-395243" src="group-395243.svg" />
-                <div class="designed-by-kimz">Designed by Helen</div>
-              </div>
-              <div class="frame-413">
-                <div class="frame-352">
-                  <img
-                    class="icon-outline-currency-dollar4"
-                    src="icon-outline-currency-dollar3.svg"
-                  />
-                  <div class="_150-000-vn">140,000 VNĐ</div>
-                </div>
-                <div class="group-395023">
-                  <img
-                    class="icon-outline-shopping-bag4"
-                    src="icon-outline-shopping-bag3.svg"
-                  />
-                  <div class="_85-purchases">64 purchases</div>
-                </div>
-                <div class="frame-412">
-                  <div class="frame-411">
-                    <div class="frame-353">
-                      <img
-                        class="icon-outline-heart4"
-                        src="icon-outline-heart3.svg"
-                      />
-                      <div class="_26-like">51 like</div>
+                    <div class="requirement-item">
+                        <strong>Chịu trách nhiệm, năng động</strong>
+                        <p>Luôn chịu trách nhiệm, năng động, sáng tạo</p>
                     </div>
-                    <div class="frame-351">
-                      <img
-                        class="icon-outline-pencil4"
-                        src="icon-outline-pencil3.svg"
-                      />
-                      <div class="can-edit">Can edit</div>
+                    <div class="requirement-item">
+                        <strong>Phòng chống tiêu cực</strong>
+                        <p>Là những người luôn luôn phòng và chống các tiêu cực</p>
                     </div>
-                  </div>
-                  <div class="button-custom2">
-                    <div class="custom">Custom</div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <h3>TƯ TƯỞNG HỒ CHÍ MINH</h3>
+                <p>Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu, bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt Nam.</p>
+                
+                <div class="footer-links">
+                    <a href="#">Tư tưởng HCM về Đảng CS Việt Nam</a>
+                    <a href="#">Giáo án</a>
+                    <a href="#">Tính tất yếu và vai trò lãnh đạo</a>
+                    <a href="#">Youtube</a>
+                    <a href="#">Nghiên cứu</a>
+                    <a href="#">Bài giảng</a>
+                    <a href="#">Video</a>
+                </div>
+                
+                <p style="margin-top: 1rem; opacity: 0.8;">
+                    Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh
+                </p>
+            </div>
+        </footer>
     </div>
-    <div class="header">
-      <a href="index.html" class="trang-ch">Trang chủ</a>
-      <a href="video.html" class="video">Video</a>
-      <a href="review.html" class="n-t-p">Ôn tập</a>
-      <a href="content.html" class="n-i-dung2">Nội dung</a>
-      <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
-    </div>
-    <div class="footer">
-      <div class="divider"></div>
-      <div class="copyright">
-        Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh
-      </div>
-      <div class="n-i-dung3">Nội dung</div>
-      <div class="t-i-li-u">Tài liệu</div>
-      <div
-        class="trang-h-c-t-p-v-nghi-n-c-u-v-t-t-ng-h-ch-minh-cung-c-p-t-i-li-u-b-i-gi-ng-v-ki-n-th-c-n-n-t-ng-v-l-ch-s-ch-nh-tr-v-tri-t-h-c-vi-t-nam"
-      >
-        Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu,
-        bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt
-        Nam.
-      </div>
-      <div class="t-t-ng-hcm-v-ng-cs-vi-t-nam">
-        Tư tưởng HCM về Đảng CS Việt Nam
-      </div>
-      <div class="gi-o-n">Giáo án</div>
-      <div class="t-nh-t-t-y-u-v-vai-tr-l-nh-o">
-        Tính tất yếu và vai trò lãnh đạo
-      </div>
-      <div class="youtube">Youtube</div>
-      <div class="ng-ph-i-trong-s-ch-v-ng-m-nh">
-        Đảng phải trong sạch, vững mạnh
-      </div>
-      <div class="nghi-n-c-u">Nghiên cứu</div>
-      <div class="b-i-gi-ng">Bài giảng</div>
-      <div class="video2">Video</div>
-      <div class="icon-outline-mail-open"></div>
-      <div class="t-t-ng-h-ch-minh">
-        TƯ TƯỞNG
-        <br />
-        HỒ CHÍ MINH
-      </div>
-    </div>
-    <div class="ng-ph-i-trong-s-ch-v-ng-m-nh2">
-      ĐẢNG PHẢI
-      <br />
-      TRONG SẠCH, VỮNG MẠNH
-    </div>
-    <div class="rectangle-5008"></div>
-    <div class="ng-l-o-c-l-v-n-minh">Đảng là đạo đức, là văn minh</div>
-    <div class="rectangle-50082"></div>
-    <div class="x-y-d-ng-i-ng-c-n-b-ng-vi-n">
-      Xây dựng đội ngũ cán bộ, đảng viên
-    </div>
-    <div class="rectangle-5000"></div>
-    <div class="rectangle-5044"></div>
-    <div class="hay-c-n-g-i-l-ng-c-ch-m-ng-ch-n-ch-nh">
-      <span>
-        <span class="hay-c-n-g-i-l-ng-c-ch-m-ng-ch-n-ch-nh-span">
-          Hay còn gọi là
-        </span>
-        <span class="hay-c-n-g-i-l-ng-c-ch-m-ng-ch-n-ch-nh-span2">
-          “ Đảng cách mạng chân chính “
-        </span>
-      </span>
-    </div>
-    <div class="rectangle-5031"></div>
-    <div class="rectangle-5032"></div>
-    <div class="rectangle-5033"></div>
-    <div class="rectangle-5034"></div>
-    <div
-      class="ng-coi-o-c-c-ch-m-ng-l-g-c-n-n-t-ng-c-a-ng-i-c-ch-m-ng-m-c-ch-ho-t-ng-gi-i-ph-ng-d-n-t-c-x-h-i-giai-c-p-v-con-ng-i-mang-l-i-t-do-h-nh-ph-c-cho-nh-n-d-n-c-ng-l-nh-ng-l-i-ch-tr-ng-v-m-i-ho-t-ng-th-c-ti-n-c-a-ng-u-ph-i-nh-m-m-c-ch-ng-ph-i-ch-m-lo-r-n-luy-n-o-c-cho-c-n-b-ng-vi-n-l-n-h-ng-u-ph-n-u-cho-l-i-ch-c-a-nh-n-d-n-v-nh-n-c"
-    >
-      <span>
-        <ul
-          class="ng-coi-o-c-c-ch-m-ng-l-g-c-n-n-t-ng-c-a-ng-i-c-ch-m-ng-m-c-ch-ho-t-ng-gi-i-ph-ng-d-n-t-c-x-h-i-giai-c-p-v-con-ng-i-mang-l-i-t-do-h-nh-ph-c-cho-nh-n-d-n-c-ng-l-nh-ng-l-i-ch-tr-ng-v-m-i-ho-t-ng-th-c-ti-n-c-a-ng-u-ph-i-nh-m-m-c-ch-ng-ph-i-ch-m-lo-r-n-luy-n-o-c-cho-c-n-b-ng-vi-n-l-n-h-ng-u-ph-n-u-cho-l-i-ch-c-a-nh-n-d-n-v-nh-n-c-span"
-        >
-          <li>Đảng coi</li>
-        </ul>
-        <ul
-          class="ng-coi-o-c-c-ch-m-ng-l-g-c-n-n-t-ng-c-a-ng-i-c-ch-m-ng-m-c-ch-ho-t-ng-gi-i-ph-ng-d-n-t-c-x-h-i-giai-c-p-v-con-ng-i-mang-l-i-t-do-h-nh-ph-c-cho-nh-n-d-n-c-ng-l-nh-ng-l-i-ch-tr-ng-v-m-i-ho-t-ng-th-c-ti-n-c-a-ng-u-ph-i-nh-m-m-c-ch-ng-ph-i-ch-m-lo-r-n-luy-n-o-c-cho-c-n-b-ng-vi-n-l-n-h-ng-u-ph-n-u-cho-l-i-ch-c-a-nh-n-d-n-v-nh-n-c-span2"
-        >
-          <li>đạo đức cách mạng là gốc</li>
-        </ul>
-        <ul
-          class="ng-coi-o-c-c-ch-m-ng-l-g-c-n-n-t-ng-c-a-ng-i-c-ch-m-ng-m-c-ch-ho-t-ng-gi-i-ph-ng-d-n-t-c-x-h-i-giai-c-p-v-con-ng-i-mang-l-i-t-do-h-nh-ph-c-cho-nh-n-d-n-c-ng-l-nh-ng-l-i-ch-tr-ng-v-m-i-ho-t-ng-th-c-ti-n-c-a-ng-u-ph-i-nh-m-m-c-ch-ng-ph-i-ch-m-lo-r-n-luy-n-o-c-cho-c-n-b-ng-vi-n-l-n-h-ng-u-ph-n-u-cho-l-i-ch-c-a-nh-n-d-n-v-nh-n-c-span"
-        >
-          <li>, nền tảng của người cách mạng.</li>
-          <li>
-            Mục đích hoạt động giải phóng dân tộc, xã hội, giai cấp và con
-            người,mang lại tự do, hạnh phúc cho nhân dân.
-          </li>
-          <li>
-            Cương lĩnh, đường lối, chủ trương và mọi hoạt động thực tiễn của Đảng
-            đều phải nhằm mục đích đó.
-          </li>
-          <li>
-            Đảng phải chăm lo rèn luyện đạo đức cho cán bộ, đảng viên lên hàng
-            đầu, phấn đấu cho lợi ích của nhân dân và nhà nước.
-          </li>
-        </ul>
-      </span>
-    </div>
-    <div
-      class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam"
-    >
-      <span>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>Đảng Cộng sản Việt Nam đại diện cho</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span2"
-        >
-          <li>trí tuệ, văn hóa và lương tâm của dân tộc.</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>Mọi</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span2"
-        >
-          <li>hoạt động</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>của Đảng trong khuôn khổ</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span2"
-        >
-          <li>hiến pháp</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>và</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span2"
-        >
-          <li>pháp luật</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>
-            , phải phù hợp với quy luật phát triển tiến bộ của xã hội và dân tộc,
-            đặt lợi ích của nhân dân lên trên hết.
-          </li>
-          <li>Đảng phải trong sạch,</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span2"
-        >
-          <li>vững mạnh</li>
-        </ul>
-        <ul
-          class="ng-c-ng-s-n-vi-t-nam-i-di-n-cho-tr-tu-v-n-h-a-v-l-ng-t-m-c-a-d-n-t-c-m-i-ho-t-ng-c-a-ng-trong-khu-n-kh-hi-n-ph-p-v-ph-p-lu-t-ph-i-ph-h-p-v-i-quy-lu-t-ph-t-tri-n-ti-n-b-c-a-x-h-i-v-d-n-t-c-t-l-i-ch-c-a-nh-n-d-n-l-n-tr-n-h-t-ng-ph-i-trong-s-ch-v-ng-m-nh-x-ng-ng-l-i-bi-u-tr-tu-l-ng-t-m-v-v-n-minh-c-a-d-n-t-c-vi-t-nam-span"
-        >
-          <li>
-            , xứng đáng là đại biểu trí tuệ, lương tâm và văn minh của dân tộc
-            Việt Nam.
-          </li>
-        </ul>
-      </span>
-    </div>
-    <div
-      class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c"
-    >
-      <span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span"
-        >
-          Trong bài nói tại Lễ
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span2"
-        >
-          kỷ niệm 30 năm Ngày thành lập Đảng
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span"
-        >
-          , tối
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span2"
-        >
-          5-1-1960
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span"
-        >
-          , tại Hội trường Ba Đình, Hà Nội, Chủ tịch Hồ Chí Minh khẳng định:
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span2"
-        >
-          “Đảng ta là đạo đức, là văn minh”
-        </span>
-        <span
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-ng-y-th-nh-l-p-ng-t-i-5-1-1960-t-i-h-i-tr-ng-ba-nh-h-n-i-ch-t-ch-h-ch-minh-kh-ng-nh-ng-ta-l-o-c-l-v-n-minh-t-m-ch-v-ng-k-t-tinh-ph-m-gi-c-t-c-ch-b-n-l-nh-tr-tu-t-m-v-c-c-a-m-t-ng-c-ch-m-ng-ch-n-ch-nh-v-mang-gi-tr-th-i-i-s-u-s-c-span"
-        >
-          . Tám chữ vàng đã kết tinh phẩm giá, cốt cách, bản lĩnh, trí tuệ, tầm
-          vóc của một đảng cách mạng chân chính và mang giá trị thời đại sâu sắc.
-          <br />
-        </span>
-      </span>
-    </div>
-    <div
-      class="y-l-n-i-dung-c-s-c-v-l-b-c-ph-t-tri-n-s-ng-t-o-l-lu-n-v-ng-c-ng-s-n-c-a-ch-t-ch-h-ch-minh"
-    >
-      Đây là nội dung đặc sắc và là bước phát triển sáng tạo lý luận về Đảng cộng
-      sản của chủ tịch Hồ Chí Minh.
-    </div>
-    <img class="fi-sr-arrow-right" src="fi-sr-arrow-right0.svg" />
-    <img class="image-225" src="image-2250.png" />
-    <div class="ng-l-o-c">Đảng là đạo đức</div>
-    <div class="ng-l-v-n-minh">Đảng là văn minh</div>
-    <div class="rectangle-50083"></div>
-    <div class="nh-ng-v-n-nguy-n-t-c-trong-ho-t-ng-c-a-ng">
-      Những vấn đề nguyên tắc trong hoạt động của Đảng
-    </div>
-    <div class="rectangle-5035"></div>
-    <div class="rectangle-5036"></div>
-    <div class="rectangle-5038"></div>
-    <div class="rectangle-5039"></div>
-    <div class="rectangle-5040"></div>
-    <div class="rectangle-5041"></div>
-    <div class="rectangle-5042"></div>
-    <div class="rectangle-5043"></div>
-    <div class="rectangle-5037"></div>
-    <div
-      class="l-nguy-n-t-c-t-ch-c-c-b-n-c-a-ng-m-i-v-n-u-ph-i-c-b-n-b-c-d-n-ch-sau-quy-t-nh-th-ng-nh-t-v-t-p-trung-th-c-hi-n-nghi-m-t-c"
-    >
-      <span>
-        <ul
-          class="l-nguy-n-t-c-t-ch-c-c-b-n-c-a-ng-m-i-v-n-u-ph-i-c-b-n-b-c-d-n-ch-sau-quy-t-nh-th-ng-nh-t-v-t-p-trung-th-c-hi-n-nghi-m-t-c-span"
-        >
-          <li>Là</li>
-        </ul>
-        <ul
-          class="l-nguy-n-t-c-t-ch-c-c-b-n-c-a-ng-m-i-v-n-u-ph-i-c-b-n-b-c-d-n-ch-sau-quy-t-nh-th-ng-nh-t-v-t-p-trung-th-c-hi-n-nghi-m-t-c-span2"
-        >
-          <li>nguyên tắc</li>
-        </ul>
-        <ul
-          class="l-nguy-n-t-c-t-ch-c-c-b-n-c-a-ng-m-i-v-n-u-ph-i-c-b-n-b-c-d-n-ch-sau-quy-t-nh-th-ng-nh-t-v-t-p-trung-th-c-hi-n-nghi-m-t-c-span"
-        >
-          <li>tổ chức cơ bản của Đảng.</li>
-          <li>
-            Mọi vấn đề đều phải được bàn bạc dân chủ, sau đó quyết định thống nhất
-            và tập trung để thực hiện nghiêm túc.
-          </li>
-        </ul>
-      </span>
-    </div>
-    <div
-      class="m-i-t-ch-c-ng-m-i-ng-vi-n-th-ng-th-n-nh-n-nh-n-u-i-m-v-khuy-t-i-m-c-a-m-nh-v-c-a-ng-i-m-c-ch-gi-p-nhau-s-a-ch-a-sai-l-m-c-ng-c-v-n-ng-cao-s-c-m-nh-c-a-ng"
-    >
-      <ul
-        class="m-i-t-ch-c-ng-m-i-ng-vi-n-th-ng-th-n-nh-n-nh-n-u-i-m-v-khuy-t-i-m-c-a-m-nh-v-c-a-ng-i-m-c-ch-gi-p-nhau-s-a-ch-a-sai-l-m-c-ng-c-v-n-ng-cao-s-c-m-nh-c-a-ng-span"
-      >
-        <li>
-          Mỗi tổ chức đảng, mỗi đảng viên thẳng thắn nhìn nhận ưu điểm và khuyết
-          điểm của mình và của đồng đội.
-        </li>
-        <li>
-          Mục đích giúp nhau sửa chữa sai lầm, củng cố và nâng cao sức mạnh của
-          Đảng.
-        </li>
-      </ul>
-    </div>
-    <div
-      class="t-t-c-ng-vi-n-ph-i-tuy-t-i-ch-p-h-nh-k-lu-t-c-a-ng-vi-c-th-c-hi-n-k-lu-t-ph-i-nghi-m-minh-c-ng-b-ng-v-d-a-tr-n-tinh-th-n-t-gi-c"
-    >
-      <ul
-        class="t-t-c-ng-vi-n-ph-i-tuy-t-i-ch-p-h-nh-k-lu-t-c-a-ng-vi-c-th-c-hi-n-k-lu-t-ph-i-nghi-m-minh-c-ng-b-ng-v-d-a-tr-n-tinh-th-n-t-gi-c-span"
-      >
-        <li>Tất cả đảng viên phải tuyệt đối chấp hành kỷ luật của Đảng.</li>
-        <li>
-          Việc thực hiện kỷ luật phải nghiêm minh, công bằng và dựa trên tinh thần
-          tự giác.
-        </li>
-      </ul>
-    </div>
-    <div
-      class="ng-ho-t-ng-v-t-qu-c-gi-u-m-nh-ng-b-o-sung-s-ng-th-ng-xuy-n-ch-nh-n-tr-th-nh-m-t-ho-t-ng-v-c-ng-quan-tr-ng-trong-x-y-d-ng-ng"
-    >
-      <ul
-        class="ng-ho-t-ng-v-t-qu-c-gi-u-m-nh-ng-b-o-sung-s-ng-th-ng-xuy-n-ch-nh-n-tr-th-nh-m-t-ho-t-ng-v-c-ng-quan-tr-ng-trong-x-y-d-ng-ng-span"
-      >
-        <li>Đảng hoạt động vì Tổ quốc giàu mạnh, đồng bào sung sướng.</li>
-        <li>
-          Thường xuyên chỉnh đốn trở thành một hoạt động vô cùng quan trọng trong
-          xây dựng Đảng.
-        </li>
-      </ul>
-    </div>
-    <div
-      class="l-i-u-ki-n-x-y-d-ng-kh-i-i-o-n-k-t-d-n-t-c-ki-n-quy-t-ch-ng-chia-r-b-ph-i-c-c-b-l-m-suy-y-u-ng"
-    >
-      <ul
-        class="l-i-u-ki-n-x-y-d-ng-kh-i-i-o-n-k-t-d-n-t-c-ki-n-quy-t-ch-ng-chia-r-b-ph-i-c-c-b-l-m-suy-y-u-ng-span"
-      >
-        <li>Là điều kiện để xây dựng khối đại đoàn kết dân tộc</li>
-        <li>Kiên quyết chống chia rẽ, bè phái, cục bộ làm suy yếu Đảng.</li>
-      </ul>
-    </div>
-    <div
-      class="ng-xu-t-ph-t-t-nh-n-d-n-v-nh-n-d-n-ph-c-v-lu-n-g-n-b-l-ng-nghe-t-n-tr-ng-v-d-a-v-o-nh-n-d-n-x-y-d-ng-b-o-v-ng-v-t-n-c"
-    >
-      <ul
-        class="ng-xu-t-ph-t-t-nh-n-d-n-v-nh-n-d-n-ph-c-v-lu-n-g-n-b-l-ng-nghe-t-n-tr-ng-v-d-a-v-o-nh-n-d-n-x-y-d-ng-b-o-v-ng-v-t-n-c-span"
-      >
-        <li>Đảng xuất phát từ nhân dân, vì nhân dân phục vụ.</li>
-        <li>
-          Luôn gắn bó, lắng nghe, tôn trọng và dựa vào nhân dân để xây dựng, bảo
-          vệ Đảng và đất nước.
-        </li>
-      </ul>
-    </div>
-    <div
-      class="duy-tr-v-t-ng-c-ng-c-c-m-i-quan-h-qu-c-t-trong-s-ng-h-c-h-i-kinh-nghi-m-t-c-c-ng-kh-c-t-nh-ch-t-qu-c-t-c-a-giai-c-p-c-ng-nh-n"
-    >
-      <ul
-        class="duy-tr-v-t-ng-c-ng-c-c-m-i-quan-h-qu-c-t-trong-s-ng-h-c-h-i-kinh-nghi-m-t-c-c-ng-kh-c-t-nh-ch-t-qu-c-t-c-a-giai-c-p-c-ng-nh-n-span"
-      >
-        <li>
-          Duy trì và tăng cường các mối quan hệ quốc tế trong sáng, học hỏi kinh
-          nghiệm từ các Đảng khác.
-        </li>
-        <li>Tính chất quốc tế của giai cấp công nhân.</li>
-      </ul>
-    </div>
-    <div class="t-p-trung-d-n-ch">Tập trung dân chủ</div>
-    <div class="t-ph-b-nh-v-ph-b-nh">Tự phê bình và phê bình</div>
-    <div class="k-lu-t-nghi-m-minh-t-gi-c">Kỷ luật nghiêm minh, tự giác</div>
-    <div class="ng-ph-i-th-ng-xuy-n-ch-nh-n">
-      Đảng phải thường xuyên chỉnh đốn
-    </div>
-    <div class="o-n-k-t-th-ng-nh-t-trong-ng">Đoàn kết, thống nhất trong Đảng</div>
-    <div class="ng-ph-i-li-n-h-m-t-thi-t-v-i-nh-n-d-n">
-      Đảng phải liên hệ mật thiết với nhân dân
-    </div>
-    <div class="o-n-k-t-qu-c-t">Đoàn kết quốc tế</div>
-    <div
-      class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin"
-    >
-      <span>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span"
-        >
-          <li>Đảng phải lấy</li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span2"
-        >
-          <li>chủ nghĩa Mac-Lenin</li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span"
-        >
-          <li>làm nền tảng</li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span2"
-        >
-          <li>tư tưởng và kim chỉ nam</li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span"
-        >
-          <li>cho hành động.</li>
-          <li>
-            Học thuyết nhiều, chủ nghĩa nhiều, nhưng chủ nghĩa chân chính nhất,
-            chắc chắn nhất,
-          </li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span2"
-        >
-          <li>cách mệnh nhất là chủ nghĩa Lenin</li>
-        </ul>
-        <ul
-          class="ng-ph-i-l-y-ch-ngh-a-mac-lenin-l-m-n-n-t-ng-t-t-ng-v-kim-ch-nam-cho-h-nh-ng-h-c-thuy-t-nhi-u-ch-ngh-a-nhi-u-nh-ng-ch-ngh-a-ch-n-ch-nh-nh-t-ch-c-ch-n-nh-t-c-ch-m-nh-nh-t-l-ch-ngh-a-lenin-span"
-        >
-          <li>.</li>
-        </ul>
-      </span>
-    </div>
-    <img class="image-227" src="image-2270.png" />
-    <img class="image-228" src="image-2280.png" />
-    <img class="image-229" src="image-2290.png" />
-    <img class="image-231" src="image-2310.png" />
-    <img class="image-232" src="image-2320.png" />
-    <img class="image-233" src="image-2330.png" />
-    <img class="image-234" src="image-2340.png" />
-    <div
-      class="h-ch-minh-cho-r-ng-c-ng-t-c-c-n-b-l-c-ng-t-c-g-c-c-a-ng-mu-n-th-nh-c-ng-hay-th-t-b-i-l-do-c-n-b-gi-i-hay-k-m-d-n-ch-d-n-ch-t-ch-h-ch-minh-y-u-c-u-c-n-b-ng-vi-n"
-    >
-      Hồ Chí Minh cho rằng công tác cán bộ là công tác gốc của Đảng.
-      <br />
-      Muốn thành công hay thất bại là do cán bộ giỏi hay kém. dân chủ dân Chủ tích
-      Hồ Chí Minh yêu cầu cán bộ, đảng viên:
-      <br />
-      <br />
-    </div>
-    <div
-      class="ph-i-tuy-t-i-trung-th-nh-v-i-ng-ph-i-l-nh-ng-ng-i-nghi-m-ch-nh-th-c-hi-n-c-ng-l-nh-ng-l-i-quan-i-m-ch-tr-ng-ngh-quy-t-c-a-ng-v-c-c-nguy-n-t-c-x-y-d-ng-ng-ph-i-lu-n-lu-n-tu-d-ng-r-n-luy-n-trau-d-i-o-c-c-ch-m-ng-ph-i-lu-n-lu-n-h-c-t-p-n-ng-cao-tr-nh-v-m-i-m-t-ph-i-c-m-i-li-n-h-m-t-thi-t-v-i-nh-n-d-n-ph-i-lu-n-ch-u-tr-ch-nhi-m-n-ng-ng-s-ng-t-o-ph-i-l-nh-ng-ng-i-lu-n-lu-n-ph-ng-v-ch-ng-c-c-ti-u-c-c"
-    >
-      <ul
-        class="ph-i-tuy-t-i-trung-th-nh-v-i-ng-ph-i-l-nh-ng-ng-i-nghi-m-ch-nh-th-c-hi-n-c-ng-l-nh-ng-l-i-quan-i-m-ch-tr-ng-ngh-quy-t-c-a-ng-v-c-c-nguy-n-t-c-x-y-d-ng-ng-ph-i-lu-n-lu-n-tu-d-ng-r-n-luy-n-trau-d-i-o-c-c-ch-m-ng-ph-i-lu-n-lu-n-h-c-t-p-n-ng-cao-tr-nh-v-m-i-m-t-ph-i-c-m-i-li-n-h-m-t-thi-t-v-i-nh-n-d-n-ph-i-lu-n-ch-u-tr-ch-nhi-m-n-ng-ng-s-ng-t-o-ph-i-l-nh-ng-ng-i-lu-n-lu-n-ph-ng-v-ch-ng-c-c-ti-u-c-c-span"
-      >
-        <li>Phải tuyệt đối trung thành với Đảng</li>
-        <li>
-          Phải là những người nghiêm chỉnh thực hiện cương lĩnh, đường lối, quan
-          điểm, chủ trương, nghị quyết của Đảng và các nguyên tắc xây dựng Đảng.
-        </li>
-        <li>Phải luôn luôn tu dưỡng, rèn luyện, trau dồi đạo đức cách mạng.</li>
-        <li>Phải luôn luôn học tập nâng cao trình độ về mọi mặt.</li>
-        <li>Phải có mối liên hệ mật thiết với nhân dân.</li>
-        <li>Phải luôn chịu trách nhiệm, năng động, sáng tạo.</li>
-        <li>Phải là những người luôn luôn phòng và chống các tiêu cực.</li>
-      </ul>
-    </div>
-    <img class="fi-sr-arrow-right2" src="fi-sr-arrow-right1.svg" />
-    <img class="fi-sr-arrow-right3" src="fi-sr-arrow-right2.svg" />
-    <img class="fi-sr-arrow-right4" src="fi-sr-arrow-right3.svg" />
-    <img class="image-235" src="image-2350.png" />
-  </div>
-  
+
+    <button class="scroll-to-top" onclick="scrollToTop()" title="Lên đầu trang">↑</button>
+
+    <script>
+        // Smooth scroll to top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollButton = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollButton.style.display = 'block';
+            } else {
+                scrollButton.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and cards
+        document.querySelectorAll('.section, .principle-card, .requirement-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>

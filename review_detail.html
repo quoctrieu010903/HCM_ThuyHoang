@@ -1,612 +1,743 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="review_detail.css">
+  <meta charset="UTF-8">
+  <title>Flashcard Quiz</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      margin: -20px -20px 30px -20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .trang-ch, .video2, .n-t-p2, .n-i-dung2 {
+      text-decoration: none;
+      color: #667eea;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .trang-ch:hover, .video2:hover, .n-t-p2:hover, .n-i-dung2:hover {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .t-t-ng-hcm {
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    .main-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .main-header h1 {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .main-header p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .flashcard-container, .quiz-container { 
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
+      margin: 20px auto;
+    }
+
+    .flashcard { 
+      width: 450px; 
+      height: 300px; 
+      perspective: 1000px; 
+      cursor: pointer; 
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .flashcard:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-face { 
+      position: absolute; 
+      width: 100%; 
+      height: 100%; 
+      backface-visibility: hidden;
+      border-radius: 20px; 
+      padding: 30px; 
+      box-sizing: border-box;
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      background: white;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transition: transform 0.6s ease;
+    }
+
+    .card-back { 
+      transform: rotateY(180deg); 
+    }
+
+    .flashcard.flipped .card-front { 
+      transform: rotateY(180deg); 
+    }
+
+    .flashcard.flipped .card-back { 
+      transform: rotateY(360deg); 
+    }
+
+    .card-type {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card-number {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .card-content {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    .card-hint {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #999;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .flashcard-option { 
+      padding: 12px 16px; 
+      margin: 8px 0; 
+      border-radius: 12px; 
+      background: #f8f9fa; 
+      text-align: left;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .flashcard-option:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+      border-color: #667eea;
+    }
+
+    .flashcard-option.selected {
+      background: #667eea;
+      color: white;
+      border-color: #5a67d8;
+    }
+
+    .flashcard-option.correct { 
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+      border: 2px solid #28a745;
+      font-weight: 600;
+      transform: scale(1.02);
+    }
+
+    .flashcard-option.incorrect {
+      background: linear-gradient(45deg, #f56565, #e53e3e);
+      color: white;
+      border: 2px solid #f56565;
+    }
+
+    .quiz-container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+
+    .quiz-type {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .quiz-number {
+      float: right;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .quiz-question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 20px 0 30px 0;
+      line-height: 1.5;
+      color: #2d3748;
+    }
+
+    .quiz-option { 
+      display: block; 
+      width: 100%; 
+      margin: 12px 0; 
+      padding: 16px 20px; 
+      border: 2px solid #e2e8f0;
+      border-radius: 12px; 
+      background: #f7fafc; 
+      cursor: pointer; 
+      text-align: left;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quiz-option:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+    }
+
+    .quiz-option.correct { 
+      background: linear-gradient(45deg, #48bb78, #38a169);
+      color: white;
+      border-color: #48bb78;
+      transform: scale(1.02);
+    }
+
+    .quiz-option.incorrect { 
+      background: linear-gradient(45deg, #f56565, #e53e3e);
+      color: white;
+      border-color: #f56565;
+    }
+
+    .navigation { 
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .nav-button { 
+      margin: 0 8px; 
+      padding: 12px 24px; 
+      cursor: pointer;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: white;
+      color: #667eea;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      background: #667eea;
+      color: white;
+    }
+
+    .nav-button:active {
+      transform: translateY(0);
+    }
+
+    .stats-panel { 
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stat-item { 
+      text-align: center;
+      background: white;
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-number { 
+      font-weight: 700; 
+      font-size: 2rem; 
+      display: block;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .main-header h1 {
+        font-size: 2rem;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        margin: -20px -20px 20px -20px;
+      }
+
+      .trang-ch, .video2, .n-t-p2, .n-i-dung2 {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .t-t-ng-hcm {
+        font-size: 1rem;
+        order: -1;
+        margin-bottom: 10px;
+      }
+      
+      .flashcard {
+        width: 350px;
+        height: 250px;
+      }
+      
+      .card-face {
+        padding: 20px;
+      }
+      
+      .quiz-container {
+        padding: 25px;
+        margin: 10px;
+      }
+      
+      .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .nav-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .flashcard-container, .quiz-container, .stats-panel {
+      animation: fadeInUp 0.8s ease-out;
+    }
+  </style>
 </head>
 <body>
-    <div class="n-t-p">
-        <div class="frame-445">
-          <div class="th-thi-t-k">
-            <div class="frame-408">
-              <img class="rectangle-4892" src="rectangle-48920.png" />
-              <img class="rectangle-4893" src="rectangle-48930.png" />
-              <div class="status-card">
-                <div class="best-seller">Best Seller</div>
-              </div>
-              <div class="frame-417">
-                <img class="icon-outline-bookmark" src="icon-outline-bookmark0.svg" />
-              </div>
-            </div>
-            <div class="frame-415">
-              <div class="frame-406">
-                <div class="member-name">T-shirt</div>
-              </div>
-              <div class="frame-414">
-                <div class="frame-349">
-                  <div class="group-39524">
-                    <img class="ellipse-156" src="ellipse-1560.png" />
-                  </div>
-                  <div class="designed-by-cloker">Designed by Cloker</div>
-                </div>
-                <div class="frame-413">
-                  <div class="frame-352">
-                    <img
-                      class="icon-outline-currency-dollar"
-                      src="icon-outline-currency-dollar0.svg"
-                    />
-                    <div class="_150-000-vn">150,000 VNĐ</div>
-                  </div>
-                  <div class="group-39502">
-                    <img
-                      class="icon-outline-shopping-bag"
-                      src="icon-outline-shopping-bag0.svg"
-                    />
-                    <div class="_85-purchases">85 purchases</div>
-                  </div>
-                  <div class="frame-412">
-                    <div class="frame-411">
-                      <div class="frame-353">
-                        <img
-                          class="icon-outline-heart"
-                          src="icon-outline-heart0.svg"
-                        />
-                        <div class="_92-like">92 like</div>
-                      </div>
-                      <div class="frame-351">
-                        <img
-                          class="icon-outline-pencil"
-                          src="icon-outline-pencil0.svg"
-                        />
-                        <div class="can-edit">Can edit</div>
-                      </div>
-                    </div>
-                    <div class="button-custom">
-                      <div class="custom">Custom</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k3">
-              <div class="frame-408">
-                <img class="rectangle-4892" src="rectangle-48921.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark2"
-                    src="icon-outline-bookmark1.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Tote Bag</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <div class="group-39524">
-                      <img class="ellipse-156" src="ellipse-1561.png" />
-                    </div>
-                    <div class="designed-by-kimz">Designed by Priome</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar2"
-                        src="icon-outline-currency-dollar1.svg"
-                      />
-                      <div class="_150-000-vn">90,000 VNĐ</div>
-                    </div>
-                    <div class="group-395022">
-                      <img
-                        class="icon-outline-shopping-bag2"
-                        src="icon-outline-shopping-bag1.svg"
-                      />
-                      <div class="_85-purchases">72 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart2"
-                            src="icon-outline-heart1.svg"
-                          />
-                          <div class="_26-like">78 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil2"
-                            src="icon-outline-pencil1.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4082">
-                <img class="rectangle-4892" src="rectangle-48922.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark3"
-                    src="icon-outline-bookmark2.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395242" src="group-395242.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar3"
-                        src="icon-outline-currency-dollar2.svg"
-                      />
-                      <div class="_150-000-vn">120,000 VNĐ</div>
-                    </div>
-                    <div class="group-39502">
-                      <img
-                        class="icon-outline-shopping-bag3"
-                        src="icon-outline-shopping-bag2.svg"
-                      />
-                      <div class="_85-purchases">69 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart3"
-                            src="icon-outline-heart2.svg"
-                          />
-                          <div class="_26-like">66 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil3"
-                            src="icon-outline-pencil2.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="th-thi-t-k2">
-            <div class="th-thi-t-k">
-              <div class="frame-4083">
-                <img class="rectangle-4892" src="rectangle-48923.png" />
-                <div class="status-card">
-                  <div class="best-seller">Best Seller</div>
-                </div>
-                <div class="frame-417">
-                  <img
-                    class="icon-outline-bookmark4"
-                    src="icon-outline-bookmark3.svg"
-                  />
-                </div>
-              </div>
-              <div class="frame-415">
-                <div class="frame-406">
-                  <div class="member-name">Demon Slayer Mouse Pad</div>
-                </div>
-                <div class="frame-414">
-                  <div class="frame-349">
-                    <img class="group-395243" src="group-395243.svg" />
-                    <div class="designed-by-kimz">Designed by Helen</div>
-                  </div>
-                  <div class="frame-413">
-                    <div class="frame-352">
-                      <img
-                        class="icon-outline-currency-dollar4"
-                        src="icon-outline-currency-dollar3.svg"
-                      />
-                      <div class="_150-000-vn">140,000 VNĐ</div>
-                    </div>
-                    <div class="group-395023">
-                      <img
-                        class="icon-outline-shopping-bag4"
-                        src="icon-outline-shopping-bag3.svg"
-                      />
-                      <div class="_85-purchases">64 purchases</div>
-                    </div>
-                    <div class="frame-412">
-                      <div class="frame-411">
-                        <div class="frame-353">
-                          <img
-                            class="icon-outline-heart4"
-                            src="icon-outline-heart3.svg"
-                          />
-                          <div class="_26-like">51 like</div>
-                        </div>
-                        <div class="frame-351">
-                          <img
-                            class="icon-outline-pencil4"
-                            src="icon-outline-pencil3.svg"
-                          />
-                          <div class="can-edit">Can edit</div>
-                        </div>
-                      </div>
-                      <div class="button-custom2">
-                        <div class="custom">Custom</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="header">
+    <a href="index.html" class="trang-ch">Trang chủ</a>
+    <a href="video.html" class="video2">Video</a>
+    <a href="review.html" class="n-t-p2">Ôn tập</a>
+    <a href="content.html" class="n-i-dung2">Nội dung</a>
+    <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
+  </div>
+
+  <div class="container">
+    <div class="main-header">
+      <h1>📚 Flashcard Quiz</h1>
+      <p>Học tập thông minh với flashcard tương tác</p>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="flashcard-container" id="flashcardContainer">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <div class="card-type">Câu hỏi</div>
+          <div class="card-number" id="cardNumber">1</div>
+          <div class="card-content" id="questionContent"></div>
+          <div class="card-options" id="questionOptions"></div>
+          <div class="card-hint">👆 Chọn đáp án để xem kết quả</div>
         </div>
-        <div class="footer">
-          <div class="divider"></div>
-          <div class="copyright">
-            Bản quyền © 2025 | Nghiên cứu và học tập tư tưởng Hồ Chí Minh
-          </div>
-          <div class="n-i-dung">Nội dung</div>
-          <div class="t-i-li-u">Tài liệu</div>
-          <div
-            class="trang-h-c-t-p-v-nghi-n-c-u-v-t-t-ng-h-ch-minh-cung-c-p-t-i-li-u-b-i-gi-ng-v-ki-n-th-c-n-n-t-ng-v-l-ch-s-ch-nh-tr-v-tri-t-h-c-vi-t-nam"
-          >
-            Trang học tập và nghiên cứu về Tư tưởng Hồ Chí Minh, cung cấp tài liệu,
-            bài giảng và kiến thức nền tảng về lịch sử, chính trị và triết học Việt
-            Nam.
-          </div>
-          <div class="t-t-ng-hcm-v-ng-cs-vi-t-nam">
-            Tư tưởng HCM về Đảng CS Việt Nam
-          </div>
-          <div class="gi-o-n">Giáo án</div>
-          <div class="t-nh-t-t-y-u-v-vai-tr-l-nh-o">
-            Tính tất yếu và vai trò lãnh đạo
-          </div>
-          <div class="youtube">Youtube</div>
-          <div class="ng-ph-i-trong-s-ch-v-ng-m-nh">
-            Đảng phải trong sạch, vững mạnh
-          </div>
-          <div class="nghi-n-c-u">Nghiên cứu</div>
-          <div class="b-i-gi-ng">Bài giảng</div>
-          <div class="video">Video</div>
-          <div class="icon-outline-mail-open"></div>
-          <div class="t-t-ng-h-ch-minh">
-            TƯ TƯỞNG
-            <br />
-            HỒ CHÍ MINH
-          </div>
+        <div class="card-face card-back">
+          <div class="card-type">Đáp án</div>
+          <div class="card-number" id="cardNumberBack">1</div>
+          <div class="card-content" id="answerContent"></div>
+          <div class="card-hint">👆 Nhấp để quay lại câu hỏi</div>
         </div>
-        <div class="header">
-          <a href="Homepage.html" class="trang-ch">Trang chủ</a>
-          <a href="video.html" class="video2">Video</a>
-          <a href="review.html" class="n-t-p2">Ôn tập</a>
-          <a href="content.html" class="n-i-dung2">Nội dung</a>
-          <div class="t-t-ng-hcm">TƯ TƯỞNG HCM</div>
-        </div>
-        <div class="rectangle-5015"></div>
-        <div class="rectangle-5021"></div>
-        <div class="rectangle-5014"></div>
-        <div class="rectangle-5022"></div>
-        <div class="rectangle-5023"></div>
-        <div class="rectangle-5024"></div>
-        <div class="rectangle-5025"></div>
-        <div class="rectangle-5026"></div>
-        <div class="rectangle-5027"></div>
-        <div class="rectangle-5028"></div>
-        <div class="rectangle-5029"></div>
-        <div class="rectangle-5030"></div>
-        <div class="rectangle-5031"></div>
-        <div class="rectangle-5032"></div>
-        <div class="rectangle-5033"></div>
-        <div class="rectangle-5034"></div>
-        <div class="rectangle-5035"></div>
-        <div class="rectangle-5036"></div>
-        <div class="rectangle-5037"></div>
-        <div class="rectangle-5016"></div>
-        <img class="play" src="play0.svg" />
-        <img class="play2" src="play1.svg" />
-        <img class="play3" src="play2.svg" />
-        <div class="flashcards">Flashcards</div>
-        <div class="turn-these-into-question">Turn these into question</div>
-        <img class="copy" src="copy0.svg" />
-        <div class="_01-16-t-t-ng-h-ch-minh-v-ng-c-ng-s-n-vi-t-nam">
-          01/16
-          <br />
-          Tư tưởng Hồ Chí Minh về Đảng Cộng sản Việt Nam
-        </div>
-        <div class="rectangle-5018"></div>
-        <div class="rectangle-5019"></div>
-        <div
-          class="t-t-ng-h-ch-minh-v-ng-c-ng-s-n-c-h-nh-th-nh-tr-n-c-s-n-o-a-l-lu-n-b-th-c-ti-n-c-kh-ng-c-c-s-n-o-d-c-l-lu-n-v-th-c-ti-n"
-        >
-          Tư tưởng Hồ Chí Minh về Đảng Cộng sản được hình thành trên cơ sở nào?
-          <br />
-          a. Lý luận
-          <br />
-          b. Thực tiễn
-          <br />
-          c. Không có cơ sở nào
-          <br />
-          d. Cả lý luận và thực tiễn
-          <br />
-        </div>
-        <div
-          class="t-t-ng-h-ch-minh-v-ng-c-ng-s-n-c-h-nh-th-nh-tr-n-c-s-n-o-a-l-lu-n-b-th-c-ti-n-c-kh-ng-c-c-s-n-o-d-c-l-lu-n-v-th-c-ti-n2"
-        >
-          Tư tưởng Hồ Chí Minh về Đảng Cộng sản được hình thành trên cơ sở nào?
-          <br />
-          a. Lý luận
-          <br />
-          b. Thực tiễn
-          <br />
-          c. Không có cơ sở nào
-          <br />
-          d. Cả lý luận và thực tiễn
-          <br />
-        </div>
-        <div class="d">D</div>
-        <div class="d2">D</div>
-        <div class="a">A</div>
-        <div class="c">C</div>
-        <div class="b">B</div>
-        <div class="b2">B</div>
-        <div class="a2">A</div>
-        <div class="b3">B</div>
-        <div class="d3">D</div>
-        <div class="d4">D</div>
-        <div class="b4">B</div>
-        <div class="b5">B</div>
-        <div class="b6">B</div>
-        <div class="a3">A</div>
-        <div class="b7">B</div>
-        <div class="b8">B</div>
-        <div
-          class="theo-h-ch-minh-ng-c-ng-s-n-vi-t-nam-l-ng-c-a-a-giai-c-p-c-ng-nh-n-b-nh-n-d-n-lao-ng-c-giai-c-p-n-ng-d-n-d-giai-c-p-c-ng-nh-n-nh-n-d-n-lao-ng-v-c-a-d-n-t-c-vi-t-nam"
-        >
-          Theo Hồ Chí Minh, Đảng Cộng sản Việt Nam là Đảng của:
-          <br />
-          a. Giai cấp công nhân
-          <br />
-          b. Nhân dân lao động
-          <br />
-          c. Giai cấp nông dân
-          <br />
-          d. Giai cấp công nhân, nhân dân lao động và của dân tộc Việt Nam
-          <br />
-        </div>
-        <div
-          class="theo-h-ch-minh-nh-n-t-quy-t-nh-h-ng-u-a-c-ch-m-ng-vi-t-nam-n-th-ng-l-i-l-a-i-o-n-k-t-d-n-t-c-b-o-n-k-t-qu-c-t-c-s-gi-p-c-a-qu-c-t-c-ng-s-n-d-s-l-nh-o-c-a-ng"
-        >
-          Theo Hồ Chí Minh, nhân tố quyết định hàng đầu để đưa cách mạng Việt Nam đến
-          thắng lợi là:
-          <br />
-          a. Đại đoàn kết dân tộc
-          <br />
-          b. Đoàn kết quốc tế
-          <br />
-          c. Sự giúp đỡ của Quốc tế cộng sản
-          <br />
-          d. Sự lãnh đạo của Đảng
-          <br />
-        </div>
-        <div
-          class="theo-h-ch-minh-n-n-t-ng-t-t-ng-c-a-ng-ph-i-d-a-tr-n-a-ch-ngh-a-m-c-l-nin-b-nguy-n-t-c-t-p-trung-d-n-ch-c-nguy-n-t-c-t-ph-b-nh-v-ph-b-nh-d-i-o-n-k-t-d-n-t-c"
-        >
-          Theo Hồ Chí Minh, nền tảng tư tưởng của Đảng phải dựa trên:
-          <br />
-          a. Chủ nghĩa Mác - Lênin
-          <br />
-          b. Nguyên tắc tập trung dân chủ
-          <br />
-          c. Nguyên tắc tự phê bình và phê bình
-          <br />
-          d. Đại đoàn kết dân tộc
-          <br />
-        </div>
-        <div
-          class="theo-t-t-ng-h-ch-minh-m-c-ch-l-t-ng-c-a-ng-c-m-quy-n-l-a-x-y-d-ng-m-t-n-c-vi-t-nam-gi-u-m-nh-b-v-l-i-ch-c-a-t-qu-c-c-a-nh-n-d-n-c-x-y-d-ng-th-nh-c-ng-ch-ngh-a-x-h-i-d-kh-ng-tham-tham-nh-ng"
-        >
-          Theo tư tưởng Hồ Chí Minh, mục đích, lý tưởng của Đảng cầm quyền là:
-          <br />
-          a. Xây dựng một nước Việt Nam giàu mạnh
-          <br />
-          b. Vì lợi ích của Tổ quốc, của nhân dân
-          <br />
-          c. Xây dựng thành công chủ nghĩa xã hội
-          <br />
-          d. Không tham ô, tham nhũng
-          <br />
-        </div>
-        <div
-          class="theo-h-ch-minh-ng-c-v-ng-m-i-th-nh-c-ng-c-ng-nh-ng-i-c-m-l-i-c-v-ng-th-a-c-ch-m-nh-thuy-n-ch-y-b-c-ch-m-ng-thuy-n-ch-y-c-c-ch-m-ng-thuy-n-m-i-ch-y-d-c-ch-m-nh-thuy-n-m-i-ch-y"
-        >
-          Theo Hồ Chí Minh: &quot;Đảng có vững, [......] mới thành công, cũng như
-          người cầm lái có vững thì [......]&quot;.
-          <br />
-          a. Cách mệnh; thuyền chạy;
-          <br />
-          b. Cách mạng; thuyền chạy
-          <br />
-          c. Cách mạng; thuyền mới chạy;
-          <br />
-          d. Cách mệnh; thuyền mới chạy
-          <br />
-        </div>
-        <div
-          class="trong-b-i-n-i-t-i-l-k-ni-m-30-n-m-th-nh-l-p-ng-1960-h-ch-minh-kh-ng-nh-a-ng-ta-l-tr-tu-l-v-n-minh-b-ng-ta-l-o-c-l-v-n-minh-c-ng-ta-l-s-c-m-nh-l-tr-tu-d-ng-ta-l-trung-th-nh-l-trong-s-ch"
-        >
-          Trong bài nói tại lễ kỷ niệm 30 năm thành lập Đảng (1960), Hồ Chí Minh đã
-          khẳng định:
-          <br />
-          A. “Đảng ta là trí tuệ, là văn minh”
-          <br />
-          B. “Đảng ta là đạo đức, là văn minh”
-          <br />
-          C. “Đảng ta là sức mạnh, là trí tuệ”
-          <br />
-          D. “Đảng ta là trung thành, là trong sạch”
-          <br />
-        </div>
-        <div
-          class="h-ch-minh-coi-y-u-t-n-o-l-g-c-c-a-ng-i-c-ch-m-ng-a-tr-tu-b-o-c-c-v-n-h-a-d-l-lu-n"
-        >
-          Hồ Chí Minh coi yếu tố nào là “gốc” của người cách mạng?
-          <br />
-          A. Trí tuệ
-          <br />
-          B. Đạo đức
-          <br />
-          C. Văn hóa
-          <br />
-          D. Lý luận
-        </div>
-        <div
-          class="m-t-trong-nh-ng-y-u-c-u-h-ch-minh-t-ra-i-v-i-c-n-b-ng-vi-n-l-a-tuy-t-i-trung-th-nh-v-i-ng-v-nh-n-d-n-b-tr-nh-h-c-t-p-l-lu-n-ch-nh-tr-b-t-h-nh-th-c-c-gi-kho-ng-c-ch-v-i-qu-n-ch-ng-nh-n-d-n-d-t-p-trung-l-i-ch-c-nh-n"
-        >
-          Một trong những yêu cầu Hồ Chí Minh đặt ra đối với cán bộ, đảng viên là:
-          <br />
-          A. Tuyệt đối trung thành với Đảng và nhân dân
-          <br />
-          B. Tránh học tập lý luận chính trị để bớt hình thức
-          <br />
-          C. Giữ khoảng cách với quần chúng nhân dân
-          <br />
-          D. Tập trung lợi ích cá nhân
-          <br />
-        </div>
-        <div
-          class="h-ch-minh-nh-n-m-nh-ng-ph-i-th-ng-xuy-n-ch-nh-n-v-a-c-ch-m-ng-lu-n-thay-i-n-n-ng-ph-i-thay-i-theo-b-tr-nh-quan-li-u-tho-i-h-a-m-b-o-ng-trong-s-ch-v-ng-m-nh-c-c-nh-tranh-v-i-c-c-ng-ch-nh-tr-kh-c-d-gi-h-nh-th-c-t-ch-c-cho-p-trong-m-t-qu-c-t"
-        >
-          Hồ Chí Minh nhấn mạnh Đảng phải thường xuyên chỉnh đốn vì:
-          <br />
-          A. Cách mạng luôn thay đổi nên Đảng phải thay đổi theo
-          <br />
-          B. Tránh quan liêu, thoái hóa, đảm bảo Đảng trong sạch, vững mạnh
-          <br />
-          C. Để cạnh tranh với các đảng chính trị khác
-          <br />
-          D. Giữ hình thức tổ chức cho đẹp trong mắt quốc tế
-          <br />
-        </div>
-        <div
-          class="nguy-n-t-c-t-ch-c-c-b-n-c-a-ng-c-ng-s-n-vi-t-nam-l-a-ph-p-quy-n-x-h-i-ch-ngh-a-b-t-p-trung-d-n-ch-c-li-n-h-m-t-thi-t-v-i-nh-n-d-n-d-t-ph-b-nh-v-ph-b-nh"
-        >
-          Nguyên tắc tổ chức cơ bản của Đảng Cộng sản Việt Nam là:
-          <br />
-          A. Pháp quyền xã hội chủ nghĩa
-          <br />
-          B. Tập trung dân chủ
-          <br />
-          C. Liên hệ mật thiết với nhân dân
-          <br />
-          D. Tự phê bình và phê bình
-        </div>
-        <div
-          class="theo-h-ch-minh-ng-ta-l-o-c-l-v-n-minh-c-coi-l-a-kh-u-hi-u-ng-n-g-n-c-a-c-ng-t-c-tuy-n-truy-n-b-t-m-ch-v-ng-k-t-tinh-ph-m-gi-b-n-l-nh-c-a-ng-c-l-i-d-n-d-trong-di-ch-c-d-s-ng-t-o-c-nh-n-kh-ng-mang-t-nh-l-lu-n"
-        >
-          Theo Hồ Chí Minh, “Đảng ta là đạo đức, là văn minh” được coi là:
-          <br />
-          A. Khẩu hiệu ngắn gọn của công tác tuyên truyền
-          <br />
-          B. Tám chữ vàng kết tinh phẩm giá, bản lĩnh của Đảng
-          <br />
-          C. Lời dặn dò trong Di chúc
-          <br />
-          D. Sáng tạo cá nhân, không mang tính lý luận
-          <br />
-        </div>
-        <div
-          class="t-i-sao-n-i-ng-c-ng-s-n-vi-t-nam-ra-i-nh-d-u-b-c-ngo-t-quy-t-nh-c-a-c-ch-m-ng-vi-t-nam-a-v-l-m-t-t-t-y-u-l-ch-s-ph-n-nh-ng-xu-th-kh-ch-quan-c-a-l-ch-s-c-ch-m-ng-vi-t-nam-b-v-n-ch-m-d-t-th-i-k-kh-ng-ho-ng-v-ng-l-i-c-u-n-c-c-a-c-ch-m-ng-vi-t-nam-nh-d-u-s-ch-n-mu-i-v-t-gi-c-c-a-phong-tr-o-c-ng-nh-n-vi-t-nam-c-v-ng-ra-i-a-giai-c-p-c-ng-nh-n-l-n-v-i-ch-nh-tr-n-m-quy-n-l-nh-o-c-ch-m-ng-vi-t-nam-a-c-ch-m-ng-n-c-ta-i-t-th-ng-l-i-n-y-n-th-ng-l-i-kh-c-d-c-a-b-v-c-u-ng"
-        >
-          Tại sao nói Đảng Cộng sản Việt Nam ra đời đánh dấu bước ngoặt quyết định của
-          cách mạng Việt Nam?
-          <br />
-          a. Vì đó là một tất yếu lịch sử, phản ánh đúng xu thế khách quan của lịch sử
-          cách mạng Việt Nam.
-          <br />
-          b. Vì nó đã chấm dứt thời kỳ khủng hoảng về đường lối cứu nước của cách mạng
-          Việt Nam, đánh dấu sự chín muồi và tự giác của phong trào công nhân Việt Nam
-          <br />
-          c. Vì Đảng ra đời đã đưa giai cấp công nhân lên vũ đài chính trị nắm quyền
-          lãnh đạo cách mạng Việt Nam, đưa cách mạng nước ta đi từ thắng lợi này đến
-          thắng lợi khác.
-          <br />
-          d. Cả a, b và c đều đúng
-        </div>
-        <div
-          class="lu-n-i-m-ph-i-gi-g-n-ng-ta-th-t-trong-s-ch-ph-i-x-ng-ng-l-ng-i-l-nh-o-l-ng-i-y-t-th-t-trung-th-nh-c-a-nh-n-d-n-c-tr-ch-t-t-c-ph-m-n-o-c-a-h-ch-minh-a-s-a-i-l-i-l-m-vi-c-b-di-ch-c-c-ng-c-ch-m-nh-d-th-ng-th-c-ch-nh-tr"
-        >
-          Luận điểm: &quot;Phải giữ gìn Đảng ta thật trong sạch, phải xứng đáng là
-          người lãnh đạo, là người đầy tớ thật trung thành của nhân dân&quot; được
-          trích từ tác phẩm nào của Hồ Chí Minh?
-          <br />
-          a. Sửa đổi lối làm việc
-          <br />
-          b. Di chúc
-          <br />
-          c. Đường Cách mệnh
-          <br />
-          d. Thường thức Chính trị
-          <br />
-        </div>
-        <div
-          class="theo-t-t-ng-h-ch-minh-lu-n-i-m-ng-c-ng-s-n-vi-t-nam-l-s-n-ph-m-c-a-s-k-t-h-p-gi-a-ch-ngh-a-m-c-l-nin-v-i-phong-tr-o-c-ng-nh-n-v-phong-tr-o-y-u-n-c-l-a-x-c-nh-nhi-m-v-c-a-ng-b-x-c-nh-b-n-ch-t-c-a-ng-c-x-c-nh-ngu-n-g-c-ra-i-c-a-ng-d-x-c-nh-n-ng-l-c-c-a-ng"
-        >
-          Theo tư tưởng Hồ Chí Minh, luận điểm Đảng Cộng sản Việt Nam là sản phẩm của
-          sự kết hợp giữa chủ nghĩa Mác Lênin với phong trào công nhân và phong trào
-          yêu nước là:
-          <br />
-          a - Xác định nhiệm vụ của Đảng
-          <br />
-          b - Xác định bản chất của Đảng
-          <br />
-          c - Xác định nguồn gốc ra đời của Đảng
-          <br />
-          d - Xác định năng lực của Đảng
-          <br />
-        </div>
-        <div
-          class="vai-tr-l-nh-o-c-a-ng-th-hi-n-tr-c-h-t-a-ra-c-ng-l-nh-ng-l-i-ch-tr-ng-ch-nh-s-ch-ng-n-b-tr-c-ti-p-i-u-h-nh-b-m-y-nh-n-c-c-thay-th-vai-tr-c-a-nh-n-d-n-trong-c-ch-m-ng-d-quy-t-nh-nh-n-s-trong-c-c-c-quan-ch-nh-quy-n"
-        >
-          Vai trò lãnh đạo của Đảng thể hiện trước hết ở:
-          <br />
-          A. Đề ra cương lĩnh, đường lối, chủ trương, chính sách đúng đắn
-          <br />
-          B. Trực tiếp điều hành bộ máy nhà nước
-          <br />
-          C. Thay thế vai trò của nhân dân trong cách mạng
-          <br />
-          D. Quyết định nhân sự trong các cơ quan chính quyền
-          <br />
-          <br />
-        </div>
-        <div class="rectangle-5020"></div>
       </div>
+    </div>
+
+    <!-- Quiz mode -->
+    <div class="quiz-container" id="quizContainer" style="display:none;">
+      <div class="quiz-card">
+        <div class="quiz-type">Câu hỏi</div>
+        <div class="quiz-number" id="quizNumber">1</div>
+        <div style="clear: both;"></div>
+        <div class="quiz-question" id="quizQuestion"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+      <button class="nav-button prev" id="prevButton">← Trước</button>
+      <button class="nav-button" id="flipButton">🔄 Lật thẻ</button>
+      <button class="nav-button next" id="nextButton">Tiếp →</button>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="stats-panel">
+      <div class="stat-item">
+        <span class="stat-number" id="studiedCount">0</span>
+        <span class="stat-label">Đã học</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="correctCount">0</span>
+        <span class="stat-label">Đúng</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="accuracyRate">0%</span>
+        <span class="stat-label">Độ chính xác</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="timeStudied">0:00</span>
+        <span class="stat-label">Thời gian học</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Flashcard data (rút gọn ví dụ)
+    const flashcards = [
+      { question: "Tư tưởng Hồ Chí Minh về Đảng Cộng sản được hình thành trên cơ sở nào?", 
+        options: ["Lý luận", "Thực tiễn", "Không có cơ sở nào", "Cả lý luận và thực tiễn"], correct: 3 },
+      { question: "Theo Hồ Chí Minh, Đảng Cộng sản Việt Nam là Đảng của:", 
+        options: ["Giai cấp công nhân", "Nhân dân lao động", "Giai cấp nông dân", "Giai cấp công nhân, nhân dân lao động và của dân tộc Việt Nam"], correct: 3 }
+    ];
+
+    // State
+    let currentCardIndex = 0;
+    let isFlipped = false;
+    let studiedCards = new Set();
+    let correctAnswers = 0;
+    let totalAttempts = 0;
+    let studyMode = 'flashcard';
+    let startTime = Date.now();
+    let selectedAnswer = null;
+    let hasAnswered = false;
+
+    // DOM
+    const flashcard = document.getElementById('flashcard');
+    const questionContent = document.getElementById('questionContent');
+    const questionOptions = document.getElementById('questionOptions');
+    const answerContent = document.getElementById('answerContent');
+    const cardNumber = document.getElementById('cardNumber');
+    const cardNumberBack = document.getElementById('cardNumberBack');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    const flipButton = document.getElementById('flipButton');
+
+    function init() {
+      loadFlashcard(currentCardIndex);
+      setupEventListeners();
+      updateStats();
+    }
+
+    function setupEventListeners() {
+      flashcard.addEventListener('click', flipCard);
+      flipButton.addEventListener('click', flipCard);
+      prevButton.addEventListener('click', () => navigateCard(-1));
+      nextButton.addEventListener('click', () => navigateCard(1));
+    }
+
+    // Load flashcard
+    function loadFlashcard(index) {
+      const card = flashcards[index];
+      questionContent.textContent = card.question;
+      cardNumber.textContent = index + 1;
+      cardNumberBack.textContent = index + 1;
+
+      // Reset state
+      selectedAnswer = null;
+      hasAnswered = false;
+
+      // Load options for question side (front)
+      questionOptions.innerHTML = '';
+      card.options.forEach((option, i) => {
+        const div = document.createElement('div');
+        div.className = 'question-option';
+        div.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+        
+        // Add click handler for selection
+        div.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent card flip
+          selectAnswerOnFront(i, div);
+        });
+        
+        questionOptions.appendChild(div);
+      });
+
+      // Load answer side (back) - initially hidden
+      answerContent.innerHTML = '';
+      card.options.forEach((option, i) => {
+        const div = document.createElement('div');
+        div.className = 'flashcard-option';
+        div.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+        answerContent.appendChild(div);
+      });
+    }
+
+    function selectAnswerOnFront(answerIndex, element) {
+      if (hasAnswered) return; // Prevent multiple selections
+
+      const card = flashcards[currentCardIndex];
+      const allOptions = document.querySelectorAll('.question-option');
+      
+      // Mark as answered
+      hasAnswered = true;
+      totalAttempts++;
+      selectedAnswer = answerIndex;
+
+      // Disable all options
+      allOptions.forEach(opt => {
+        opt.classList.add('disabled');
+      });
+
+      // Show immediate feedback
+      allOptions.forEach((opt, i) => {
+        if (i === card.correct) {
+          opt.classList.add('correct');
+        } else if (i === answerIndex && i !== card.correct) {
+          opt.classList.add('incorrect');
+        }
+      });
+
+      // Update stats
+      if (answerIndex === card.correct) {
+        correctAnswers++;
+      }
+      
+      studiedCards.add(currentCardIndex);
+      updateStats();
+      
+      // Update hint text
+      const hint = document.querySelector('.card-hint');
+      if (answerIndex === card.correct) {
+        hint.textContent = '🎉 Chính xác! Nhấp để xem chi tiết';
+        hint.style.color = '#28a745';
+      } else {
+        hint.textContent = '❌ Sai rồi! Nhấp để xem chi tiết';  
+        hint.style.color = '#f56565';
+      }
+    }
+
+    function showAnswerResult() {
+      const card = flashcards[currentCardIndex];
+      const backOptions = document.querySelectorAll('.flashcard-option');
+      
+      totalAttempts++;
+
+      backOptions.forEach((opt, i) => {
+        if (i === card.correct) {
+          opt.classList.add('correct');
+        } else if (i === selectedAnswer && i !== card.correct) {
+          opt.classList.add('incorrect');
+        }
+      });
+
+      // Update stats
+      if (selectedAnswer === card.correct) {
+        correctAnswers++;
+      }
+      
+      studiedCards.add(currentCardIndex);
+      updateStats();
+    }
+
+    function loadQuizCard(index) {
+      const card = flashcards[index];
+      document.getElementById("quizQuestion").textContent = card.question;
+      document.getElementById("quizNumber").textContent = index + 1;
+
+      const optionsContainer = document.getElementById("quizOptions");
+      optionsContainer.innerHTML = '';
+      card.options.forEach((option, i) => {
+        const btn = document.createElement("button");
+        btn.className = "quiz-option";
+        btn.textContent = `${String.fromCharCode(97 + i)}. ${option}`;
+        btn.addEventListener("click", () => {
+          if (i === card.correct) {
+            btn.classList.add("correct");
+            correctAnswers++;
+          } else {
+            btn.classList.add("incorrect");
+          }
+          totalAttempts++;
+          updateStats();
+          setTimeout(() => navigateCard(1), 1500);
+        });
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function flipCard() {
+      if (studyMode !== 'flashcard') return;
+      
+      // If on front side, don't allow flip until answer is selected
+      if (!isFlipped && !hasAnswered) {
+        // Show hint message
+        const hint = document.querySelector('.card-hint');
+        hint.style.color = '#f56565';
+        hint.textContent = '⚠️ Hãy chọn đáp án trước!';
+        setTimeout(() => {
+          hint.style.color = '#999';
+          hint.textContent = '👆 Chọn đáp án để xem kết quả';
+        }, 2000);
+        return;
+      }
+
+      isFlipped = !isFlipped;
+      flashcard.classList.toggle('flipped', isFlipped);
+      
+      // Show detailed result when flipping to back
+      if (isFlipped && hasAnswered) {
+        showDetailedAnswer();
+      }
+    }
+
+    function showDetailedAnswer() {
+      const card = flashcards[currentCardIndex];
+      const backOptions = document.querySelectorAll('.flashcard-option');
+      
+      backOptions.forEach((opt, i) => {
+        if (i === card.correct) {
+          opt.classList.add('correct');
+        } else if (i === selectedAnswer && i !== card.correct) {
+          opt.classList.add('incorrect');
+        }
+      });
+    }
+
+    function navigateCard(direction) {
+      // Reset flip state
+      if (isFlipped) {
+        isFlipped = false;
+        flashcard.classList.remove('flipped');
+      }
+      
+      currentCardIndex = (currentCardIndex + direction + flashcards.length) % flashcards.length;
+      
+      if (studyMode === 'flashcard') {
+        loadFlashcard(currentCardIndex);
+      }
+      if (studyMode === 'quiz') {
+        loadQuizCard(currentCardIndex);
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('studiedCount').textContent = studiedCards.size;
+      document.getElementById('correctCount').textContent = correctAnswers;
+      const accuracy = totalAttempts ? Math.round((correctAnswers / totalAttempts) * 100) : 0;
+      document.getElementById('accuracyRate').textContent = `${accuracy}%`;
+      const timeElapsed = Math.floor((Date.now() - startTime) / 1000);
+      const m = Math.floor(timeElapsed / 60), s = timeElapsed % 60;
+      document.getElementById('timeStudied').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    init();
+  </script>
 </body>
 </html>
-  
